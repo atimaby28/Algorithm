@@ -1,4 +1,4 @@
-package level0.week4;
+package level0.week2;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

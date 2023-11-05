@@ -1,4 +1,4 @@
-package level0.week4;
+package level0.week2;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -33,7 +33,7 @@ public class PG_level0_컨트롤제트 {
         
         Object[] obj = s.split(" ");
         
-        //for (String w : s.split(" ")) {
+        // for (String w : s.split(" ")) {
         for (int i = 0; i < obj.length; i++) {
 			if (obj[i].equals("Z")) {
 				st.pop();
