@@ -13,9 +13,14 @@ public class PG_level0_문자열계산하기 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		String my_string = br.readLine();
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int[] sides = new int[2];
+		
+		sides[0] = Integer.parseInt(st.nextToken());
+		sides[1] = Integer.parseInt(st.nextToken());
 
-		int result = solution(my_string);
+		int result = solution(sides);
 
 		bw.write(result + "\n");
 
@@ -23,23 +28,30 @@ public class PG_level0_문자열계산하기 {
 		bw.close();
 
 	}
-
-	public static int solution(String my_string) {
-		int answer = 0;
+	
+    public static int solution(int[] sides) {
+        int answer = 0;
+        
+		int bigger = 0;
+		int smaller = 0;
 		
-		StringTokenizer st = new StringTokenizer(my_string, " ");
-		
-		answer += Integer.parseInt(st.nextToken());
-		
-		while(st.hasMoreTokens()) {
-			if(st.nextToken().equals("+")) {
-				answer += Integer.parseInt(st.nextToken());
-			} else {
-				answer -= Integer.parseInt(st.nextToken());
-			}
+		if(sides[0] > sides[1]) {
+			bigger = sides[0];
+			smaller = sides[1];
+		} else {
+			bigger = sides[1];
+			smaller = sides[0];
 		}
 		
-		return answer;
-	}
+		for (int i = bigger - smaller + 1; i <= bigger; i++) {
+			answer++;
+		}
+		
+		for (int i = bigger + 1; i < smaller + bigger; i++) {
+			answer++;
+		}
+		
+        return answer;
+    }
 
 }
