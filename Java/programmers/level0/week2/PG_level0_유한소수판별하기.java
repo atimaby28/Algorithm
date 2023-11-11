@@ -31,7 +31,7 @@ public class PG_level0_유한소수판별하기 {
         int answer = 0;
         
         int gcdNum = gcd(a, b);
-        int lcmNum = lcm(a, b);
+        //int lcmNum = lcm(a, b);
         
         a = a / gcdNum;
         b = b / gcdNum;
