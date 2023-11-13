@@ -37,13 +37,21 @@ public class PG_level0_특이한정렬 {
 	
     public static int[] solution(int[] numlist, int n) {
         int[] answer = {};
-
-        int idx = 0;
+        
+        int[] diff = new int[numlist.length];
+        
         for (int i = 0; i < numlist.length; i++) {
-			if(numlist[i] == n) {
-				idx = i;
-			}
+        	diff[i] = n - numlist[i];
 		}
+        
+        Arrays.sort(diff);
+        
+        System.out.println();
+        for (int i = 0; i < diff.length; i++) {
+			System.out.print(diff[i] + " ");
+		}
+        
+        
         
         return answer;
     }
