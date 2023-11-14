@@ -46,12 +46,41 @@ public class PG_level0_특이한정렬 {
         
         Arrays.sort(diff);
         
+        int idx = 0;
+        int min = Math.abs(n - diff[0]);
+        for (int i = 0; i < diff.length; i++) {
+        	if(min > Math.abs(diff[i])) {
+        		min = Math.abs(diff[i]);
+        		idx = i;
+        	}
+		}
+        
+        System.out.println(min + " " + idx);
+        
+        answer = new int[numlist.length];
+        
         System.out.println();
         for (int i = 0; i < diff.length; i++) {
 			System.out.print(diff[i] + " ");
 		}
         
+        answer[0] = diff[idx] + n;
         
+        int p = 2;
+        int q = 1;
+        for (int i = idx + 1; i < diff.length; i++) {
+			answer[p] = n - diff[i];
+			p += 2;
+		}
+        
+        for (int i = idx - 1; i > 0; i--) {
+			answer[q] = n + diff[i];
+			q += 2;
+		}
+        
+        for (int i = 0; i < diff.length; i++) {
+			System.out.print(answer[i] + " ");
+		}
         
         return answer;
     }
