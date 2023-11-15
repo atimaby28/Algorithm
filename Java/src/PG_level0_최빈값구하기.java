@@ -1,0 +1,56 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.StringTokenizer;
+
+public class PG_level0_최빈값구하기 {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+		StringTokenizer st = null;
+		
+		int k = Integer.parseInt(br.readLine());
+		
+		int[] array = new int[k];
+		
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < array.length; i++) {
+			array[i] = Integer.parseInt(st.nextToken());
+		}
+		
+		int result = solution(array);
+
+		bw.write(result + "\n");
+
+		bw.flush();
+		bw.close();
+
+	}
+	
+    public static int solution(int[] array) {
+        int answer = 0;
+        
+        HashMap<Integer, Integer> cnt = new HashMap<>();
+        
+        for (int key : array) {
+			cnt.put(key, cnt.getOrDefault(key, 0) + 1);
+		}
+        
+        List<Integer> keys = new ArrayList<>(cnt.keySet());
+        
+        Collections.sort(keys, (o1, o2) -> (cnt.get(o1).compareTo(cnt.get(o2)))); 
+        
+        return answer;
+    }
+    
+
+}

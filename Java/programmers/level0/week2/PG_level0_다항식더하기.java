@@ -6,5 +6,10 @@ public class PG_level0_다항식더하기 {
 		// TODO Auto-generated method stub
 
 	}
+	
+    public int solution(int[] array) {
+        int answer = 0;
+        return answer;
+    }
 
 }
