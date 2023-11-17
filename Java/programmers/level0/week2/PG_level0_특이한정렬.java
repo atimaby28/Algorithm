@@ -40,47 +40,50 @@ public class PG_level0_특이한정렬 {
         
         int[] diff = new int[numlist.length];
         
+        //Arrays.sort(numlist);
+        
+        for (int i = 0; i < diff.length; i++) {
+			System.out.print(numlist[i] + " ");
+		}
+        
+        System.out.println();
+        
         for (int i = 0; i < numlist.length; i++) {
         	diff[i] = n - numlist[i];
 		}
-        
         Arrays.sort(diff);
-        
         int idx = 0;
-        int min = Math.abs(n - diff[0]);
-        for (int i = 0; i < diff.length; i++) {
-        	if(min > Math.abs(diff[i])) {
-        		min = Math.abs(diff[i]);
-        		idx = i;
-        	}
+        int min = Math.abs(diff[0]);
+        for (int i = 1; i < diff.length; i++) {
+			if(Math.abs(diff[i]) < min) {
+				min = Math.abs(diff[i]);
+				idx = i;
+			}
 		}
         
         System.out.println(min + " " + idx);
         
         answer = new int[numlist.length];
         
+        answer[0] = Math.abs(diff[idx]) + n;
+        
+        for (int i = 0; i < diff.length; i++) {
+			System.out.print(diff[i] + " ");
+		}
         System.out.println();
+
+        
         for (int i = 0; i < diff.length; i++) {
 			System.out.print(diff[i] + " ");
 		}
         
-        answer[0] = diff[idx] + n;
+        //System.out.println(idx + " " + diff[idx]);
         
-        int p = 2;
-        int q = 1;
-        for (int i = idx + 1; i < diff.length; i++) {
-			answer[p] = n - diff[i];
-			p += 2;
-		}
+//        
+//        
+//        answer[0] = diff[idx] + n;
         
-        for (int i = idx - 1; i > 0; i--) {
-			answer[q] = n + diff[i];
-			q += 2;
-		}
-        
-        for (int i = 0; i < diff.length; i++) {
-			System.out.print(answer[i] + " ");
-		}
+        //System.out.println(answer[0]);
         
         return answer;
     }
