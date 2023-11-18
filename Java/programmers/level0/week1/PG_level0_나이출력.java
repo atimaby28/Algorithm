@@ -5,20 +5,16 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
-public class PG_level0_몫구하기 {
+public class PG_level0_나이출력 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		int age = Integer.parseInt(br.readLine());
 		
-		int num1 = Integer.parseInt(st.nextToken());
-		int num2 = Integer.parseInt(st.nextToken());
-		
-		int result = solution(num1, num2);
+		int result = solution(age);
 		
 		bw.write(result + "\n");
 		
@@ -26,10 +22,10 @@ public class PG_level0_몫구하기 {
 		bw.close();
 	}
 	
-    public static int solution(int num1, int num2) {
-        int answer = 0;
+    public static int solution(int age) {
+        int answer = 1;
         
-        answer = num1 / num2;
+        answer += 2022 - age;
         
         return answer;
     }

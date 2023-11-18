@@ -33,30 +33,42 @@ public class PG_level0_다음에올숫자 {
 		bw.close();
 	}
 	
+//    public static int solution(int[] common) {
+//        int answer = 0;
+//        
+//        int a = common[0];
+//        int d = common[1] - common[0];
+//        int n = common.length;
+//        int r = 0;
+//        
+//        try {
+//        	r = common[1] / common[0];
+//        } catch(ArithmeticException e){
+//        	r = common[2] / common[1];
+//        }
+//        
+//        if(common[2] == a + 2 * d) {
+//        	answer = a + n * d;
+//        } else {
+//        	int t = r;
+//        	for (int i = 0; i < common.length - 1; i++) {
+//				t *= r;
+//			}
+//        	
+//        	answer = a * t;
+//        }
+//        return answer;
+//    }
+    
     public static int solution(int[] common) {
         int answer = 0;
         
-        int a = common[0];
-        int d = common[1] - common[0];
-        int n = common.length;
-        int r = 0;
-        
-        try {
-        	r = common[1] / common[0];
-        } catch(ArithmeticException e){
-        	r = common[2] / common[1];
-        }
-  
-        if(common[2] == a + 2 * d) {
-        	answer = a + n * d;
+        if((common[1] - common[0]) == (common[2] - common[1])) {
+            answer = common[common.length-1] + (common[1] - common[0]);
         } else {
-        	int t = r;
-        	for (int i = 0; i < common.length - 1; i++) {
-				t *= r;
-			}
-        	
-        	answer = a * t;
+        	answer = common[common.length-1] * (common[1] / common[0]);
         }
+        
         return answer;
     }
 
