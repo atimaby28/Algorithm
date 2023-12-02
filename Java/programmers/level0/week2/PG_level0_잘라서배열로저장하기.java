@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class PG_level0_잘라서배열로저장하기 {
 
@@ -27,6 +29,8 @@ public class PG_level0_잘라서배열로저장하기 {
 
 	public static String[] solution(String my_str, int n) {
 		String[] answer = {};
+		
+		Queue<Object> que = new LinkedList<Object>();
 
 		int len = 0;
 		if (my_str.length() % 2 == 0) {
@@ -37,17 +41,25 @@ public class PG_level0_잘라서배열로저장하기 {
 
 		answer = new String[len];
 
+		for (int i = 0; i < my_str.length(); i++) {
+			que.offer(my_str.charAt(i));
+		}
+		
+		System.out.println(que);
+		
 		int k = 0;
-		for (int i = 0; i < len; i++) {
-			answer[i] = ""; 
-			for (int j = 0; j < n; j++) {
-				if(k > my_str.length() - 1) {
+		while(que.size() != 0) {
+			answer[k] =  "";
+			for (int i = 0; i < n; i++) {
+				if(que.size() == 0) {
 					break;
 				}
-				answer[i] += my_str.charAt(k++);
+				answer[k] += que.poll();
 			}
-		}	
+			k++;
+		}
 
+		
 		return answer;
 	}
 
