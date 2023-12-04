@@ -14,20 +14,20 @@ public class PG_level0_외계어사전 {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
 		StringTokenizer st;
-		
+
 		int s = Integer.parseInt(br.readLine());
-		
+
 		String[] spell = new String[s];
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < spell.length; i++) {
 			spell[i] = st.nextToken();
 		}
-		
+
 		int d = Integer.parseInt(br.readLine());
-		
+
 		String[] dic = new String[d];
 		st = new StringTokenizer(br.readLine());
-		for (int i = 0; i < spell.length; i++) {
+		for (int i = 0; i < dic.length; i++) {
 			dic[i] = st.nextToken();
 		}
 
@@ -39,19 +39,33 @@ public class PG_level0_외계어사전 {
 		bw.close();
 
 	}
-	
-    public static int solution(String[] spell, String[] dic) {
-        int answer = 0;
+
+	public static int solution(String[] spell, String[] dic) {
+        int answer = 2;
         
         for (int i = 0; i < dic.length; i++) {
-			for (String s : spell) {
-				if(dic[i].contains(s)) {
-					System.out.println(s);
-				} else {
-					break;
-				}
-			}
-		}
+            for (String s : spell) {
+                if(dic[i].contains(s)) {
+                    answer = 1;
+                } else {
+                    answer = 2;
+                    break;
+                }
+            }
+
+            if(answer == 1) {
+                break;
+            }
+        }
+//        
+//        for(int i=0;i<dic.length;i++){
+//            int answer = 2;
+//            for(int j=0;j<spell.length;j++){
+//                if(dic[i].contains(spell[j])) answer ++;
+//            }
+//            if(answer==spell.length) {
+//            	answer = 1;
+//            }
         
         return answer;
     }

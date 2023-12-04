@@ -47,17 +47,13 @@ public class PG_level0_잘라서배열로저장하기 {
 		
 		System.out.println(que);
 		
-		int k = 0;
-		while(que.size() != 0) {
-			answer[k] =  "";
-			for (int i = 0; i < n; i++) {
-				if(que.size() == 0) {
-					break;
-				}
-				answer[k] += que.poll();
-			}
-			k++;
-		}
+//        int index = 0;
+//        for(int i = 0 ; i < my_str.length() ; ){
+//            int next = Math.min(i+n,my_str.length());
+//            answer[index] = my_str.substring(i,next);
+//            i += n;
+//            index++;
+//        }
 
 		
 		return answer;
