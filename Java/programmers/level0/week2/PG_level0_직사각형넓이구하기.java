@@ -35,13 +35,18 @@ public class PG_level0_직사각형넓이구하기 {
     public static int solution(int[][] dots) {
         int answer = 0;
         
-        int l1 = (int) Math.sqrt((dots[1][0] - dots[0][0]) * (dots[1][0] - dots[0][0]) 
-        		+ (dots[1][1] - dots[0][1]) * (dots[1][1] - dots[0][1]));
+        double l1 = Math.sqrt(((dots[1][0] - dots[0][0]) * (dots[1][0] - dots[0][0])) 
+        		+ ((dots[1][1] - dots[0][1]) * (dots[1][1] - dots[0][1])));
         
-        int l2 = (int) Math.sqrt((dots[3][0] - dots[2][0]) * (dots[3][0] - dots[2][0]) 
-        		+ (dots[3][1] - dots[2][1]) * (dots[3][1] - dots[2][1]));
+        double l2 = Math.sqrt(((dots[1][0] - dots[3][0]) * (dots[1][0] - dots[3][0])) 
+        		+ ((dots[1][1] - dots[3][1]) * (dots[1][1] - dots[3][1])));
         
-        answer = l1 * l2;
+
+        if(l1 > l2) {
+        	answer = Math.abs(dots[2][0] - dots[1][0]) * (dots[1][0] - dots[3][0]);
+        } else {
+        	answer = Math.abs(dots[1][0] - dots[0][0]) * (dots[2][1] - dots[1][1]);
+        }
         
         return answer;
     }
