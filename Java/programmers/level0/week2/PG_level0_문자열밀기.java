@@ -27,9 +27,23 @@ public class PG_level0_문자열밀기 {
 	}
 	
     public static int solution(String A, String B) {
-        int answer = 0;
+        int answer = -1;
         
+        for (int i = 0; i < A.length(); i++) {
+        	if(A.equals(B)) {
+        		answer = i++;
+        		break;
+        	}
+        	
+        	String head = A.charAt(A.length() - 1) + "";
+			String body = A.substring(0, A.length() - 1);
+			
+			A = head + body;
+			
+		}
         
+//        String tempB = B.repeat(3);
+//        return tempB.indexOf(A);
         
         return answer;
     }
