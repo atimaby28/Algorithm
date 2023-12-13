@@ -5,9 +5,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class PG_level0_중복된숫자개수 {
+public class PG_level0_최댓값만들기1 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,16 +18,14 @@ public class PG_level0_중복된숫자개수 {
 		
 		int k = Integer.parseInt(br.readLine());
 		
-		int[] array = new int[k];
+		int[] numbers = new int[k];
 		
 		st = new StringTokenizer(br.readLine());
-		for (int i = 0; i < array.length; i++) {
-			array[i] = Integer.parseInt(st.nextToken());
+		for (int i = 0; i < numbers.length; i++) {
+			numbers[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		int n = Integer.parseInt(st.nextToken());
-		
-		int  result = solution(array, n);
+		int result = solution(numbers);
 
 		bw.write(result + "\n");
 
@@ -35,14 +34,12 @@ public class PG_level0_중복된숫자개수 {
 
 	}
 	
-    public static int solution(int[] array, int n) {
+    public static int solution(int[] numbers) {
         int answer = 0;
         
-        for (int i = 0; i < array.length; i++) {
-			if(array[i] == n) {
-				answer++;
-			}
-		}
+        Arrays.sort(numbers);
+        
+        answer = numbers[numbers.length - 1] * numbers[numbers.length - 2];
         
         return answer;
     }

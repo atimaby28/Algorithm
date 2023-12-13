@@ -7,26 +7,18 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
-public class PG_level0_중복된숫자개수 {
+public class PG_level0_특정문자제거하기 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		StringTokenizer st = null;
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		int k = Integer.parseInt(br.readLine());
+		String my_string = st.nextToken();
+		String letter = st.nextToken();
 		
-		int[] array = new int[k];
-		
-		st = new StringTokenizer(br.readLine());
-		for (int i = 0; i < array.length; i++) {
-			array[i] = Integer.parseInt(st.nextToken());
-		}
-		
-		int n = Integer.parseInt(st.nextToken());
-		
-		int  result = solution(array, n);
+		String result = solution(my_string, letter);
 
 		bw.write(result + "\n");
 
@@ -35,14 +27,10 @@ public class PG_level0_중복된숫자개수 {
 
 	}
 	
-    public static int solution(int[] array, int n) {
-        int answer = 0;
+    public static String solution(String my_string, String letter) {
+        String answer = "";
         
-        for (int i = 0; i < array.length; i++) {
-			if(array[i] == n) {
-				answer++;
-			}
-		}
+        answer = my_string.replaceAll(letter, "");
         
         return answer;
     }
