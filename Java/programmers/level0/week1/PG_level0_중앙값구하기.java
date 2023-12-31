@@ -5,31 +5,41 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class PG_level0_나머지구하기 {
+public class PG_level0_중앙값구하기 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		StringTokenizer st = null;
+		
+		int k = Integer.parseInt(br.readLine());
+		
+		int[] array = new int[k];
 
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < array.length; i++) {
+			array[i] = Integer.parseInt(st.nextToken());
+		}
 		
-		int num1 = Integer.parseInt(st.nextToken());
-		int num2 = Integer.parseInt(st.nextToken());
-		
-		int result = solution(num1, num2);
+		int result = solution(array);
 		
 		bw.write(result + "\n");
 		
 		bw.flush();
 		bw.close();
+
 	}
 	
-    public static int solution(int num1, int num2) {
-        int answer = -1;
+    public static int solution(int[] array) {
+        int answer = 0;
         
-        answer = num1 % num2;
+        Arrays.sort(array);
+
+        answer = array[array.length / 2];
         
         return answer;
     }

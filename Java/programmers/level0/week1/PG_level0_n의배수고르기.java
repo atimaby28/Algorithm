@@ -5,49 +5,52 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class PG_level0_짝수홀수갯수 {
+public class PG_level0_n의배수고르기 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
+		
 		StringTokenizer st = null;
 		
 		int n = Integer.parseInt(br.readLine());
-
-		int[] num_list = new int[n];
+		
+		int[] numlist = new int[n];
 		
 		st = new StringTokenizer(br.readLine());
-		for (int i = 0; i < num_list.length; i++) {
-			num_list[i] = Integer.parseInt(st.nextToken());
+		for (int i = 0; i < numlist.length; i++) {
+			numlist[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		int[] result = solution(num_list);
+		int[] result = solution(n, numlist);
 		
 		bw.write(result + "\n");
-
+		
 		bw.flush();
 		bw.close();
-		
 	}
 	
-    public static int[] solution(int[] num_list) {
-        int[] answer = new int[2];
+    public static int[] solution(int n, int[] numlist) {
+        int[] answer = {};
         
-        for (int i = 0; i < num_list.length; i++) {
-			if(num_list[i] % 2 == 0) {
-				answer[0]++;
-			} else {
-				answer[1]++;
+        ArrayList<Integer> arrlist = new ArrayList<Integer>();
+        
+        for (int i = 0; i < numlist.length; i++) {
+			if(numlist[i] % n == 0) {
+				arrlist.add(numlist[i]);
 			}
 		}
         
-//        for(int i = 0; i < num_list.length; i++) {
-//        	answer[num_list[i] % 2]++;        	
-//        }
+        answer = new int[arrlist.size()];
+        
+        for (int i = 0; i < arrlist.size(); i++) {
+			answer[i] = arrlist.get(i);
+		}
         
         return answer;
     }
+
 }

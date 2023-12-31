@@ -5,20 +5,16 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
-public class PG_level0_나머지구하기 {
+public class PG_level0_대문자와소문자 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		String my_string = br.readLine();
 		
-		int num1 = Integer.parseInt(st.nextToken());
-		int num2 = Integer.parseInt(st.nextToken());
-		
-		int result = solution(num1, num2);
+		String result = solution(my_string);
 		
 		bw.write(result + "\n");
 		
@@ -26,10 +22,20 @@ public class PG_level0_나머지구하기 {
 		bw.close();
 	}
 	
-    public static int solution(int num1, int num2) {
-        int answer = -1;
+    public static String solution(String my_string) {
+        String answer = "";
         
-        answer = num1 % num2;
+        char[] str = my_string.toCharArray();
+        
+        for (char c : str) {
+			if(c >= 'a' && c <= 'z') {
+				c = (char)(c - ' ');
+			} else {
+				c = (char)(c + ' ');
+			}
+			
+			answer += c;
+		}
         
         return answer;
     }

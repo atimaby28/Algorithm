@@ -5,20 +5,16 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
-public class PG_level0_나머지구하기 {
+public class PG_level0_가위바위보 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		String rsp = br.readLine();
 		
-		int num1 = Integer.parseInt(st.nextToken());
-		int num2 = Integer.parseInt(st.nextToken());
-		
-		int result = solution(num1, num2);
+		String result = solution(rsp);
 		
 		bw.write(result + "\n");
 		
@@ -26,10 +22,18 @@ public class PG_level0_나머지구하기 {
 		bw.close();
 	}
 	
-    public static int solution(int num1, int num2) {
-        int answer = -1;
+    public static String solution(String rsp) {
+        String answer = "";
         
-        answer = num1 % num2;
+        for (int i = 0; i < rsp.length(); i++) {
+			if(rsp.charAt(i) == '0') {
+				answer += '5';
+			} else if(rsp.charAt(i) == '2') {
+				answer += '0';
+			} else {
+				answer += '2';
+			}
+		}
         
         return answer;
     }

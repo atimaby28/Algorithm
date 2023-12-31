@@ -5,20 +5,18 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
-public class PG_level0_나머지구하기 {
+public class PG_level0_암호해독 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		String cipher = br.readLine();
 		
-		int num1 = Integer.parseInt(st.nextToken());
-		int num2 = Integer.parseInt(st.nextToken());
+		int code = Integer.parseInt(br.readLine());
 		
-		int result = solution(num1, num2);
+		String result = solution(cipher, code);
 		
 		bw.write(result + "\n");
 		
@@ -26,10 +24,12 @@ public class PG_level0_나머지구하기 {
 		bw.close();
 	}
 	
-    public static int solution(int num1, int num2) {
-        int answer = -1;
+    public static String solution(String cipher, int code) {
+        String answer = "";
         
-        answer = num1 % num2;
+        for (int i = code - 1; i < cipher.length(); i+= code) {
+			answer += cipher.charAt(i);
+		}
         
         return answer;
     }

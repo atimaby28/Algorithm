@@ -5,29 +5,25 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class PG_level0_중복된숫자개수 {
+public class PG_level0_삼각형의완성조건1 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
+		
 		StringTokenizer st = null;
 		
-		int k = Integer.parseInt(br.readLine());
-		
-		int[] array = new int[k];
+		int[] sides = new int[3];
 		
 		st = new StringTokenizer(br.readLine());
-		
-		for (int i = 0; i < array.length; i++) {
-			array[i] = Integer.parseInt(st.nextToken());
+		for (int i = 0; i < sides.length; i++) {
+			sides[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		int n = Integer.parseInt(st.nextToken());
-		
-		int  result = solution(array, n);
+		int result = solution(sides);
 
 		bw.write(result + "\n");
 
@@ -36,14 +32,16 @@ public class PG_level0_중복된숫자개수 {
 
 	}
 	
-    public static int solution(int[] array, int n) {
+    public static int solution(int[] sides) {
         int answer = 0;
         
-        for (int i = 0; i < array.length; i++) {
-			if(array[i] == n) {
-				answer++;
-			}
-		}
+        Arrays.sort(sides);
+        
+        if(sides[2] < sides[0] + sides[1]) {
+        	answer = 1;
+        } else {
+        	answer = 2;
+        }
         
         return answer;
     }

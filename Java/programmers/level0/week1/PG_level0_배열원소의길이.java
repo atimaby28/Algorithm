@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
-public class PG_level0_중복된숫자개수 {
+public class PG_level0_배열원소의길이 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -15,19 +15,17 @@ public class PG_level0_중복된숫자개수 {
 
 		StringTokenizer st = null;
 		
-		int k = Integer.parseInt(br.readLine());
+		int n = Integer.parseInt(br.readLine());
 		
-		int[] array = new int[k];
+		String[] strlist = new String[n];
 		
 		st = new StringTokenizer(br.readLine());
 		
-		for (int i = 0; i < array.length; i++) {
-			array[i] = Integer.parseInt(st.nextToken());
+		for (int i = 0; i < strlist.length; i++) {
+			strlist[i] = st.nextToken();
 		}
-		
-		int n = Integer.parseInt(st.nextToken());
-		
-		int  result = solution(array, n);
+
+		int[] result = solution(strlist);
 
 		bw.write(result + "\n");
 
@@ -36,16 +34,15 @@ public class PG_level0_중복된숫자개수 {
 
 	}
 	
-    public static int solution(int[] array, int n) {
-        int answer = 0;
+    public static int[] solution(String[] strlist) {
+        int[] answer = new int[strlist.length];
         
-        for (int i = 0; i < array.length; i++) {
-			if(array[i] == n) {
-				answer++;
-			}
+        for (int i = 0; i < answer.length; i++) {
+			answer[i] = strlist[i].length();
 		}
         
         return answer;
     }
 
 }
+

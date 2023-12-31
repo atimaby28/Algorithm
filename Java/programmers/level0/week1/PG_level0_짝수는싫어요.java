@@ -5,31 +5,37 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
-public class PG_level0_나머지구하기 {
+public class PG_level0_짝수는싫어요 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		int n = Integer.parseInt(br.readLine());
 
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		int num1 = Integer.parseInt(st.nextToken());
-		int num2 = Integer.parseInt(st.nextToken());
-		
-		int result = solution(num1, num2);
+		int[] result = solution(n);
 		
 		bw.write(result + "\n");
 		
-		bw.flush();
 		bw.close();
+		bw.flush();
+		
 	}
 	
-    public static int solution(int num1, int num2) {
-        int answer = -1;
+    public static int[] solution(int n) {
+        int[] answer = {};
         
-        answer = num1 % num2;
+        if(n % 2 != 0) {
+        	answer = new int[n / 2 + 1];
+        } else {
+        	answer = new int[n / 2];
+        }
+        
+        int k = 0;
+        for (int i = 1; i <= n; i+= 2) {
+			answer[k++] = i;
+		}
         
         return answer;
     }

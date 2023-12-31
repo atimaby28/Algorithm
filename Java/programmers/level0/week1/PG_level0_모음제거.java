@@ -5,31 +5,30 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
-public class PG_level0_나머지구하기 {
+public class PG_level0_모음제거 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		String message = br.readLine();
 		
-		int num1 = Integer.parseInt(st.nextToken());
-		int num2 = Integer.parseInt(st.nextToken());
-		
-		int result = solution(num1, num2);
-		
+		String result = solution(message);
+
 		bw.write(result + "\n");
-		
+
 		bw.flush();
 		bw.close();
+
 	}
 	
-    public static int solution(int num1, int num2) {
-        int answer = -1;
+    public static String solution(String my_string) {
+        String answer = "";
         
-        answer = num1 % num2;
+        my_string = my_string.replaceAll("[aeiou]", "");
+        
+        answer = my_string;
         
         return answer;
     }

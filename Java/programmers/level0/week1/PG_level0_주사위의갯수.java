@@ -7,31 +7,40 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
-public class PG_level0_나머지구하기 {
-
+class Solution {
+	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		int num1 = Integer.parseInt(st.nextToken());
-		int num2 = Integer.parseInt(st.nextToken());
+		StringTokenizer st = null;
 		
-		int result = solution(num1, num2);
+		int k = Integer.parseInt(br.readLine());
+		
+		int[] box = new int[k];
+		
+		st = new StringTokenizer(br.readLine());
+		
+		for (int i = 0; i < box.length; i++) {
+			box[i] = Integer.parseInt(st.nextToken());
+		}
+		
+		int n = Integer.parseInt(br.readLine());
+		
+		int result = solution(box, n);
 		
 		bw.write(result + "\n");
 		
 		bw.flush();
 		bw.close();
+
 	}
 	
-    public static int solution(int num1, int num2) {
-        int answer = -1;
+    public static int solution(int[] box, int n) {
+        int answer = 0;
         
-        answer = num1 % num2;
+        answer = (box[0] / n) * (box[1] / n) * (box[2] / n);
         
         return answer;
     }
-
 }

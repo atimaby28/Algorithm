@@ -5,31 +5,29 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
-public class PG_level0_나머지구하기 {
+public class PG_level0_아이스아메리카노 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		int money = Integer.parseInt(br.readLine());
 		
-		int num1 = Integer.parseInt(st.nextToken());
-		int num2 = Integer.parseInt(st.nextToken());
-		
-		int result = solution(num1, num2);
-		
+		int[] result = solution(money);
+
 		bw.write(result + "\n");
-		
+
 		bw.flush();
 		bw.close();
+
 	}
 	
-    public static int solution(int num1, int num2) {
-        int answer = -1;
+    public static int[] solution(int money) {
+        int[] answer = new int[2];
         
-        answer = num1 % num2;
+        answer[0] = money / 5500;
+        answer[1] = money % 5500;
         
         return answer;
     }
