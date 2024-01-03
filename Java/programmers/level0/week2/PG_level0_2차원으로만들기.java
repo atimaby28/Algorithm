@@ -1,7 +1,5 @@
 package level0.week2;
 
-package week1;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;

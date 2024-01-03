@@ -14,23 +14,23 @@ public class PG_level0_몫구하기 {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		
+
 		int num1 = Integer.parseInt(st.nextToken());
 		int num2 = Integer.parseInt(st.nextToken());
-		
+
 		int result = solution(num1, num2);
-		
+
 		bw.write(result + "\n");
-		
+
 		bw.flush();
 		bw.close();
 	}
-	
+
     public static int solution(int num1, int num2) {
         int answer = 0;
-        
+
         answer = num1 / num2;
-        
+
         return answer;
     }
 
