@@ -1,41 +1,48 @@
 package recursion;
 
-    /*
-    m >= n인 두 양의 정수 m과 n에 대하여 m이 n의 배수이면 gcd(m, n) = n이고,
-    그렇지 않으면 gcd(m, n) = gcd(n, m % n)이다.
-    */
+/*
+m >= n인 두 양의 정수 m과 n에 대하여 m이 n의 배수이면 gcd(m, n) = n이고,
+그렇지 않으면 gcd(m, n) = gcd(n, m % n)이다.
+*/
 public class Euclid {
     public static void main(String[] args) {
-        int m = 3;
-        int n = 52;
+        int a = 32;
+        int b = 16;
 
-        // int euclid = func(m, n);
+        // int euclid_gcd = gcd(a, b);
 
-        int euclid = func2(m, n);
+        int euclid_gcd = gcd2(a, b);
 
-        System.out.println(euclid);
+        int euclid_lcm = lcm(a, b);
+
+        System.out.println(euclid_gcd + " " + euclid_lcm);
     }
 
-    private static int func(int m, int n) {
+    private static int gcd(int a, int b) {
         // Base case
-        if (m < n) {
-            int temp = m;
-            m = n;
-            n = temp;
+        if (a < b) {
+            int temp = a;
+            a = b;
+            b = temp;
         }
 
-        if(m % n == 0) {
-            return n;
+        if (a % b == 0) {
+            return b;
         } else {
-            return func(n, m % n);
+            return gcd(b, a % b);
         }
     }
 
-    private static int func2(int p, int q) {
-        if(q == 0) {
-            return p;
+    private static int gcd2(int a, int b) {
+        if (b == 0) {
+            return a;
         }
 
-        return func2(q, p % q);
+        return gcd2(b, a % b);
     }
+
+    private static int lcm(int a, int b) {
+        return (a * b) / gcd2(a, b);
+    }
+
 }
