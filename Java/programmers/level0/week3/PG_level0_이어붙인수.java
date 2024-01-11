@@ -31,41 +31,25 @@ public class PG_level0_이어붙인수 {
     public static int solution(int[] num_list) {
         int answer = 0;
 
-        String evenSum = sumEven(num_list, num_list.length - 1);
+        String[] sum = {"", ""};
 
-        String oddSum = sumOdd(num_list, num_list.length - 1);
-
-        System.out.println(evenSum + " " + oddSum);
+        answer = sumOddEven(num_list, 0, sum);
 
         return answer;
     }
 
-    private static String sumEven(int[] num_list, int i) {
-        if(i == 0) {
-            return "";
+    private static int sumOddEven(int[] numList, int length, String[] sum) {
+        if(length == numList.length) {
+          return Integer.parseInt(sum[0]) + Integer.parseInt(sum[1]);
+        } else {
+          if(numList[length] % 2 == 0) {
+              sum[0] += numList[length];
+          } else {
+              sum[1] += numList[length];
+          }
         }
 
-        String sum = sumEven(num_list, i - 1);
-
-        if(num_list[i] % 2 == 0) {
-            sum += num_list[i];
-        }
-
-        return  sum;
-    }
-
-    private static String sumOdd(int[] numList, int i) {
-        if(i == -1) {
-            return "";
-        }
-
-        String sum = sumOdd(numList, i - 1);
-
-        if(numList[i] % 2 != 0) {
-            sum += numList[i];
-        }
-
-        return  sum;
+        return sumOddEven(numList, length + 1, sum);
 
     }
 
