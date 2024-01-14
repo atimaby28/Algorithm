@@ -20,7 +20,7 @@ public class PG_level0_조건에맞게수열변환하기3 {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int k = Integer.parseInt(br.readLine())
+        int k = Integer.parseInt(br.readLine());
 
         int[] result = solution(arr, k);
 
