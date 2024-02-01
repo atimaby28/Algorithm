@@ -1,11 +1,10 @@
 package level0.week4;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class PG_level0_커피심부름 {
+public class PG_level0_문자열묶기 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -15,14 +14,14 @@ public class PG_level0_커피심부름 {
 
         int k = Integer.parseInt(br.readLine());
 
-        String[] order = new String[k];
+        String[] strArr = new String[k];
 
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < order.length; i++) {
-            order[i] = st.nextToken();
+        for (int i = 0; i < strArr.length; i++) {
+            strArr[i] = st.nextToken();
         }
 
-        int result = solution(order);
+        int result = solution(strArr);
 
         bw.write(result + "\n");
 
@@ -30,17 +29,18 @@ public class PG_level0_커피심부름 {
         bw.close();
     }
 
-    public static int solution(String[] order) {
+    public static int solution(String[] strArr) {
         int answer = 0;
 
-        for (int i = 0; i < order.length; i++) {
-            if (order[i].contains("cafelatte")) {
-                answer += 5000;
-            } else {
-                answer += 4500;
-            }
+        int[] count = new int[100000];
+
+        for (int i = 0; i < strArr.length; i++) {
+            count[strArr[i].length()]++;
         }
 
+        Arrays.sort(count);
+
+        answer = count[count.length - 1];
 
         return answer;
     }
