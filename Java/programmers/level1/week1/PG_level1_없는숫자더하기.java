@@ -1,10 +1,9 @@
 package level1.week1;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class PG_level1_제일작은수제거하기 {
+public class PG_level1_없는숫자더하기 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -21,38 +20,36 @@ public class PG_level1_제일작은수제거하기 {
             numbers[i] = Integer.parseInt(st.nextToken());
         }
 
-        int[] result = solution(numbers);
+        int result = solution(numbers);
 
         bw.write(result + "\n");
 
         bw.flush();
         bw.close();
     }
-    public static int[] solution(int[] arr) {
-        int[] answer = {};
+    public static int solution(int[] numbers) {
+        int answer = -1;
 
-        int min = arr[0];
-        int idx = 0;
-        for (int i = 1; i < arr.length; i++) {
-            if(min > arr[i]) {
-                min = arr[i];
-                idx = i;
-            }
+        boolean[] check = new boolean[10];
+
+        for (int n : numbers) {
+            check[n] = true;
         }
 
-        for (int i = 0; i < arr.length; i++) {
-            if(i == idx) {
-                continue;
-            } else {
-                answer = Arrays.copyOf(answer, answer.length + 1);
-                answer[answer.length - 1] = arr[i];
+        for (int i = 0; i < check.length; i++) {
+            if(!check[i]) {
+                answer += i;
             }
-        }
-
-        if(arr.length == 0) {
-            answer = new int[]{-1};
         }
 
         return answer;
     }
+
+//    public int solution(int[] numbers) {
+//        int sum = 45;
+//        for (int i : numbers) {
+//            sum -= i;
+//        }
+//        return sum;
+//    }
 }
