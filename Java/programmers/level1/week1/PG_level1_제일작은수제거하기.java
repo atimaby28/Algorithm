@@ -49,7 +49,7 @@ public class PG_level1_제일작은수제거하기 {
             }
         }
 
-        if(arr.length == 0) {
+        if(answer.length == 0) {
             answer = new int[]{-1};
         }
 
