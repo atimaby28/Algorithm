@@ -32,9 +32,9 @@ public class PG_level1_콜라문제 {
                 spare = n % a;
             }
 
-            answer += n / a;
+            answer += (n / a) * b;
 
-            n = (n / a ) + spare;
+            n = ((n / a ) * b) + spare;
         }
 
         return answer;
