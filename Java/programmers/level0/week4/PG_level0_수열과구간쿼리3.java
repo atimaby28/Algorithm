@@ -27,8 +27,8 @@ public class PG_level0_수열과구간쿼리3 {
 
         int[][] queries = new int[p][q];
 
-        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < queries.length; i++) {
+            st = new StringTokenizer(br.readLine());
             for (int j = 0; j < queries[i].length; j++) {
                 queries[i][j] = Integer.parseInt(st.nextToken());
             }
