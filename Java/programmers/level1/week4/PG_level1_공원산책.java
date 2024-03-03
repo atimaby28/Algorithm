@@ -59,38 +59,35 @@ public class PG_level1_공원산책 {
         int xPos = startX, yPos = startY;
 
         for (int i = 0; i < routes.length; i++) {
-            int nx = xPos, ny = yPos;
 
-            if(routes[i].charAt(0) == 'E') {
-                nx = nx + dx[0];
-                ny = ny + dy[0];
-            } else if(routes[i].charAt(0) == 'W') {
-                nx = nx + dx[1];
-                ny = ny + dy[1];
-            } else if(routes[i].charAt(0) == 'S') {
-                nx = nx + dx[2];
-                ny = ny + dy[2];
-            } else if(routes[i].charAt(0) == 'N'){
-                nx = nx + dx[3];
-                ny = ny + dy[3];
-            }
+            for (int j = 0; j < (routes[i].charAt(2) - '0'); j++) {
 
-            for (int j = 1; j <= (routes[i].charAt(2) - '0'); j++) {
-                if(nx * j >= 0 && nx * j < map[i].length && ny * j >= 0 && ny * j < map.length && map[(ny * j) - 1][(nx * j) - 1] == 'O') {
-                    xPos = nx * j;
-                    yPos = ny * j;
+                int nx = 0, ny = 0;
+
+                if(routes[i].charAt(0) == 'E') {
+                    nx = nx + dx[0] * j;
+                } else if(routes[i].charAt(0) == 'W') {
+                    nx = nx + dx[1] * j;
+                } else if(routes[i].charAt(0) == 'S') {
+                    ny = ny + dx[2] * j;
+                } else if(routes[i].charAt(0) == 'N'){
+                    ny = ny + dx[3] * j;
+                }
+
+                if(nx >= 0 && nx < map[i].length && ny >= 0 && ny < map.length && map[ny][nx] == 'O') {
+                    xPos = nx;
+                    yPos = ny;
                 } else {
                     break;
                 }
             }
 
+            System.out.println(xPos + " " + yPos);
+
         }
 
-
-        System.out.println(xPos + " " + yPos);
-
-        answer[0] = xPos;
-        answer[1] = yPos;
+        answer[0] = yPos;
+        answer[1] = xPos;
 
         return answer;
     }
@@ -110,4 +107,11 @@ public class PG_level1_공원산책 {
 //3
 //E 2
 //S 2
+//W 1
+
+//4
+//OSO OOO OXO OOO
+//3
+//E 2
+//S 3
 //W 1
