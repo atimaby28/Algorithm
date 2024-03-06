@@ -43,33 +43,27 @@ public class PG_level2_영어끝말잇기 {
             wordCount.put(words[i], wordCount.getOrDefault(words[i], 0) + 1);
         }
 
-        boolean flag = false;
-
         int k = 0;
+        boolean flag = false;
         for (int i = 0; i < words.length / n; i++) {
             for (int j = 0; j < n; j++) {
                 wordMap[j][i] = words[k++];
-                System.out.println(wordMap[j][i]);
-                System.out.println(wordCount.get(wordMap[j][i]));
+
                 if (wordCount.get(wordMap[j][i]) != 1) {
-                    answer[0] = j;
-                    answer[1] = i;
+                    answer[0] = j + 1;
+                    answer[1] = i + 1;
 
-                }
-
-                if(j != 0 && wordMap[j - 1][i].charAt(wordMap[j - 1][i].length() - 1) != wordMap[j - 1][i].charAt(0)) {
-                    answer[0] = j;
-                    answer[1] = i;
-
+                } else if(j != 0 && wordMap[j - 1][i - 1].charAt(wordMap[j - 1][i - 1].length() - 1) != wordMap[j][i].charAt(0)) {
+                    answer[0] = j + 1;
+                    answer[1] = i + 1;
                     flag = true;
                     break;
                 }
             }
-            if (flag) {
+            if(flag) {
                 break;
             }
         }
-
         return answer;
     }
 
