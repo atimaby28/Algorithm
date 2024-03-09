@@ -52,6 +52,5 @@ public class PG_level2_n2배열자르기 {
 
         return answer;
     }
-}
 
 }
