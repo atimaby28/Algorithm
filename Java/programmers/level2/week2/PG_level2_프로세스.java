@@ -1,7 +1,7 @@
 package level2.week2;
 
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class PG_level2_프로세스 {
 
@@ -21,7 +21,7 @@ public class PG_level2_프로세스 {
             priorities[i] = Integer.parseInt(st.nextToken());
         }
 
-        int location = Integer.parseInt(st.nextToken());
+        int location = Integer.parseInt(br.readLine());
 
         int result = solution(priorities, location);
 
@@ -35,7 +35,23 @@ public class PG_level2_프로세스 {
     public static int solution(int[] priorities, int location) {
         int answer = 0;
 
-        
+        Deque<Integer> deque = new LinkedList<>();
+
+        for (int i = 0; i < priorities.length; i++) {
+            deque.addLast(priorities[i]);
+        }
+
+        for (int i = 0; i < priorities.length; i++) {
+            int process = deque.pollFirst();
+
+            for (int j = i + 1; j < priorities.length; j++) {
+                if(process < priorities[j]) {
+                    
+                }
+            }
+        }
+
+        System.out.println(deque);
 
         return answer;
     }
