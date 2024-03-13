@@ -35,23 +35,24 @@ public class PG_level2_프로세스 {
     public static int solution(int[] priorities, int location) {
         int answer = 0;
 
-        Deque<Integer> deque = new LinkedList<>();
+        PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
 
-        for (int i = 0; i < priorities.length; i++) {
-            deque.addLast(priorities[i]);
+        for (int i : priorities) {
+            queue.offer(i);
         }
 
-        for (int i = 0; i < priorities.length; i++) {
-            int process = deque.pollFirst();
+        while (!queue.isEmpty()) {
+            for (int i = 0; i < priorities.length; i++) {
+                if (queue.peek() == priorities[i]) {
+                    queue.poll();
+                    answer++;
 
-            for (int j = i + 1; j < priorities.length; j++) {
-                if(process < priorities[j]) {
-                    
+                    if (location == i) {
+                        return answer;
+                    }
                 }
             }
         }
-
-        System.out.println(deque);
 
         return answer;
     }
