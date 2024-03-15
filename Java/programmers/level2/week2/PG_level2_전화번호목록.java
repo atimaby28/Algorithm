@@ -34,7 +34,7 @@ public class PG_level2_전화번호목록 {
     public static boolean solution(String[] phone_book) {
         boolean answer = true;
 
-        HashMap<String, Boolean> hsmap = new HashMap<>();
+        HashMap<String, Boolean> hashMap = new HashMap<>();
 
         Arrays.sort(phone_book, new Comparator<String>() {
             @Override
@@ -49,22 +49,21 @@ public class PG_level2_전화번호목록 {
             }
         });
 
-        for (int i = 0; i < phone_book.length; i++) {
-            int sampleLen = phone_book[i].length();
 
+        for (int i = 0; i < phone_book.length; i++) {
+            int size = phone_book[i].length();
             for (int j = i; j < phone_book.length; j++) {
-                String key = phone_book[j].substring(0, sampleLen);
-                if(hsmap.containsKey(key)) {
+                String key = phone_book[j].substring(0, size);
+                if(hashMap.containsKey(key)) {
                     answer = false;
                     break;
                 } else {
-                    hsmap.put(key, true);
+                    hashMap.put(key, true);
                 }
             }
-            hsmap.clear();
+            hashMap.clear();
         }
 
         return answer;
     }
-
 }
