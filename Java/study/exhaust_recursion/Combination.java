@@ -10,35 +10,35 @@ import java.util.StringTokenizer;
 
 public class Combination {
 
-    private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-    private static int[] input;
-    private static int[] numbers;
-
     public static void main(String[] args) throws NumberFormatException, IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int n = Integer.parseInt(st.nextToken());
         int r = Integer.parseInt(st.nextToken());
 
-        input = new int[n];
+        int[] arr = new int[n];
+        boolean[] visited = new boolean[n];
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            input[i] = Integer.parseInt(st.nextToken());
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        numbers = new int[n];
-
-        // for
+        // Combination, For Loop; r : 3
         nestedFor(n);
 
-        bw.write("\n");
+        System.out.println();
 
-        // Combination
-        combination(0, 0, n, r);
+        // Combination, Backtracking
+        combination(arr, visited, 0, n, r);
+
+        System.out.println();
+
+        // Combination, Recursive
+        comb(arr, visited, 0, n, r);
 
         bw.flush();
         bw.close();
@@ -48,22 +48,56 @@ public class Combination {
         for (int i = 1; i <= n; i++) {
             for (int j = i + 1; j <= n; j++) {
                 for (int k = j + 1; k <= n; k++) {
-                    bw.write(i + " " + j + " " + k + " " + "\n");
+                    System.out.println(i + " " + j + " " + k);
                 }
             }
         }
     }
 
-    private static void combination(int cnt, int start, int n, int r) throws IOException {
-        if (cnt == r) {
-			System.out.println(Arrays.toString(numbers));
+
+    // 백트래킹 사용
+    static void combination(int[] arr, boolean[] visited, int start, int n, int r) {
+        if (r == 0) {
+            for (int i = 0; i < n; i++) {
+                if (visited[i]) {
+                    System.out.print(arr[i] + " ");
+                }
+            }
+
+            System.out.println();
+
             return;
         }
-        // start 위치의 수부터 가능한 수 모두 고려
+
         for (int i = start; i < n; i++) {
-            numbers[cnt] = input[i];
-            combination(cnt + 1, i + 1, n, r);
+            visited[i] = true;
+            combination(arr, visited, i + 1, n, r - 1);
+            visited[i] = false;
         }
+    }
+
+    // 재귀 사용
+    static void comb(int[] arr, boolean[] visited, int depth, int n, int r) {
+        if (r == 0) {
+            for (int i = 0; i < n; i++) {
+                if (visited[i]) {
+                    System.out.print(arr[i] + " ");
+                }
+            }
+
+            System.out.println();
+
+            return;
+        }
+
+        if (depth == n) {
+            return;
+        }
+
+        visited[depth] = true;
+        comb(arr, visited, depth + 1, n, r - 1);
+        visited[depth] = false;
+        comb(arr, visited, depth + 1, n, r);
     }
 
 }

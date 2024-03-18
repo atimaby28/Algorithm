@@ -8,70 +8,83 @@ import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 public class Powerset {
-    private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-    private static int[] input;
-    private static boolean[] isSelected;
-
     public static void main(String[] args) throws NumberFormatException, IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        StringTokenizer st = null;
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int n = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
 
-        input = new int[n];
+        int[] arr = new int[n];
+        boolean[] visited = new boolean[n];
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            input[i] = Integer.parseInt(st.nextToken());
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        isSelected = new boolean[n + 1];
+        // PowerSet, For Loop; r : 3
+        nestedFor(arr, visited, n);
 
-        // for
-        nestedFor(n);
+        System.out.println();
 
-        bw.write("\n");
+        // PowerSet, Backtracking
+        powerSet(arr, visited, n, 0);
 
-        // Permutation
-        powerset(0, n);
+        System.out.println();
+
+        // PowerSet, Bit
+        powerSetBit(arr, n);
 
         bw.flush();
         bw.close();
     }
 
-    private static void nestedFor(int n) throws IOException {
+    private static void nestedFor(int[] arr, boolean[] visited, int n) throws IOException {
         for (int i = 1; i <= 2; i++) {
-            isSelected[0] = i % 2 !=0 ? true : false;
+            visited[0] = i % 2 != 0 ? true : false;
             for (int j = 1; j <= 2; j++) {
-                isSelected[1] = j % 2 !=0 ? true : false;
+                visited[1] = j % 2 != 0 ? true : false;
                 for (int k = 1; k <= 2; k++) {
-                    isSelected[2] = k % 2 !=0 ? true : false;
+                    visited[2] = k % 2 != 0 ? true : false;
                     for (int m = 0; m < n; m++) {
-                        bw.write((isSelected[m] ? input[m] : "X") + " ");
+                        System.out.print(visited[m] ? arr[m]: "X");
                     }
-                    bw.write("\n");
+                    System.out.println();
                 }
-
-
             }
         }
     }
 
-    private static void powerset(int cnt, int n) throws IOException {
-        if(cnt == n) {
+    static void powerSet(int[] arr, boolean[] visited, int n, int idx) {
+        if (idx == n) {
+
             for (int i = 0; i < n; i++) {
-                bw.write((isSelected[i] ? input[i] : "X") + " ");
+                if (visited[i] == true)
+                    System.out.print(arr[i] + " ");
             }
-            bw.write("\n");
+
+            System.out.println();
+
             return;
         }
 
-        isSelected[cnt] = false;
-        powerset(cnt+1, n);
-        isSelected[cnt] = true;
-        powerset(cnt+1, n);
+        visited[idx] = false;
+        powerSet(arr, visited, n, idx + 1);
+
+        visited[idx] = true;
+        powerSet(arr, visited, n, idx + 1);
+    }
+
+    static void powerSetBit(int[] arr, int n) {
+        for (int i = 0; i < 1 << n; i++) {
+            for (int j = 0; j < n; j++) {
+                if ((i & 1 << j) != 0)
+                    System.out.print(arr[j] + " ");
+            }
+            System.out.println();
+        }
     }
 
 }

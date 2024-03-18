@@ -8,37 +8,35 @@ import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 public class Permutation {
-    private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-    private static int[] input;
-    private static int[] numbers;
-    private static boolean[] isSelected;
-
     public static void main(String[] args) throws NumberFormatException, IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int n = Integer.parseInt(st.nextToken());
         int r = Integer.parseInt(st.nextToken());
 
-        input = new int[n];
+        int[] arr = new int[n];
+        int[] output = new int[n];
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            input[i] = Integer.parseInt(st.nextToken());
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        numbers = new int[n];
-        isSelected = new boolean[n + 1];
-
-        // for
+        // Permutation, For Loop; r : 3
         nestedFor(n);
 
-        bw.write("\n");
+        System.out.println();
 
-        // Permutation
-        permutation(0, n, r);
+        // Permutation, Lexical order
+        permutation(arr, output, new boolean[n], 0, n, r);
+
+        System.out.println();
+
+        // permutation, Swap
+        perm(arr, 0, n, 3);
 
         bw.flush();
         bw.close();
@@ -50,7 +48,7 @@ public class Permutation {
                 if (j != i) {
                     for (int k = 1; k <= n; k++) {
                         if (k != i && k != j) {
-                            bw.write(i + " " + j + " " + k + " " + "\n");
+                            System.out.println(i + " " + j + " " + k);
                         }
                     }
                 }
@@ -58,30 +56,50 @@ public class Permutation {
         }
     }
 
-    /**
-     * @param cnt : 현재까지 뽑은 순열의 개수
-     */
-    private static void permutation(int cnt, int n, int r) throws IOException {
-
-        if(cnt == r) {
-//			System.out.println(Arrays.toString(numbers));
+    // 사전순으로 순열 구하기
+    static void permutation(int[] arr, int[] output, boolean[] visited, int depth, int n, int r) {
+        if (depth == r) {
             for (int i = 0; i < r; i++) {
-                bw.write(numbers[i] + " ");
+                System.out.print(arr[i] + " ");
             }
-            bw.write("\n");
+
+            System.out.println();
+
             return;
         }
 
-        // 현재의 인덱스에서 입력된 수가 사용중인지를 확인하는 반복문
         for (int i = 0; i < n; i++) {
-            if(isSelected[i]) continue; // 사용 중인 수라면 다음 수로
-
-            numbers[cnt] = input[i];
-            isSelected[i] = true;
-
-            // 다음 자리순열 뽑으러
-            permutation(cnt + 1, n, r);
-            isSelected[i] = false;
+            if (visited[i] != true) {
+                visited[i] = true;
+                output[depth] = arr[i];
+                permutation(arr, output, visited, depth + 1, n, r);
+                visited[i] = false;
+            }
         }
     }
+
+    // 순열 구하기
+    static void perm(int[] arr, int depth, int n, int r) {
+        if (depth == r) {
+            for (int i = 0; i < r; i++) {
+                System.out.print(arr[i] + " ");
+            }
+
+            System.out.println();
+            return;
+        }
+
+        for (int i = depth; i < n; i++) {
+            swap(arr, depth, i);
+            perm(arr, depth + 1, n, r);
+            swap(arr, depth, i);
+        }
+    }
+
+    static void swap(int[] arr, int depth, int i) {
+        int temp = arr[depth];
+        arr[depth] = arr[i];
+        arr[i] = temp;
+    }
+
 }
