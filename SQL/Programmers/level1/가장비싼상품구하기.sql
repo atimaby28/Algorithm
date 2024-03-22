@@ -1,0 +1,4 @@
+use programmers_db;
+
+SELECT MAX(PRICE) AS MAX_PRICE
+FROM PRODUCT;

@@ -1,0 +1,5 @@
+use programmers_db;
+
+SELECT ANIMAL_ID, NAME
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID;
