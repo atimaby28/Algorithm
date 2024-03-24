@@ -1,43 +1,21 @@
 USE programmers_db;
 
-CREATE TABLE CAR_RENTAL_COMPANY_CAR
+CREATE TABLE BOOK
 (
-	CAR_ID		INTEGER NOT NULL,
-    CAR_TYPE 	VARCHAR(255) NOT NULL,
-    DAILY_FEE	INTEGER NOT NULL,
-    OPTIONS 	VARCHAR(255) NOT NULL
+	BOOK_ID			INTEGER NOT NULL,
+    CATEGORY 		VARCHAR(255) NOT NULL,
+    AUTHOR_ID		INTEGER NOT NULL,
+    PRICE 			INTEGER NOT NULL,
+    PUBLISHED_DATE 	DATE NOT NULL
 );
 
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (1, "트럭", 102000, "주차감지센서,열선시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (2, "SUV", 148000, "주차감지센서,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (3, "세단", 55000, "스마트키,통풍시트,가죽시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (4, "SUV", 150000, "주차감지센서,스마트키,열선시트,후방카메라,가죽시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (5, "SUV", 127000, "주차감지센서,스마트키");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (6, "트럭", 133000, "주차감지센서,스마트키");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (7, "승합차", 150000, "스마트키,통풍시트,열선시트,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (8, "트럭", 107000, "주차감지센서,통풍시트,열선시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (9, "SUV", 84000, "주차감지센서,스마트키");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (10, "세단", 162000, "주차감지센서,스마트키,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (11, "승합차", 122000, "열선시트,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (12, "트럭", 142000, "후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (13, "승합차", 144000, "네비게이션");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (14, "SUV", 77000, "주차감지센서,스마트키,열선시트,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (15, "승합차", 114000, "주차감지센서,통풍시트,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (16, "세단", 168000, "주차감지센서,열선시트,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (17, "SUV", 107000, "스마트키,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (18, "SUV", 22000, "주차감지센서,스마트키,열선시트,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (19, "SUV", 79000, "주차감지센서,스마트키,열선시트,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (20, "트럭", 168000, "주차감지센서,통풍시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (21, "리무진", 250000, "주차감지센서,스마트키,통풍시트,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (22, "세단", 186000, "주차감지센서,스마트키,통풍시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (23, "세단", 50000, "스마트키,네비게이션,열선시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (24, "세단", 184000, "주차감지센서,스마트키,열선시트,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (25, "세단", 115000, "주차감지센서,열선시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (26, "SUV", 126000, "주차감지센서,통풍시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (27, "SUV", 23000, "주차감지센서,스마트키,통풍시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (28, "리무진", 298000, "주차감지센서,스마트키,네비게이션,열선시트,후방카메라,가죽시트");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (29, "SUV", 1, "주차감지센서,후방카메라");
-INSERT INTO CAR_RENTAL_COMPANY_CAR(car_id, car_type, daily_fee, options) VALUES (30, "트럭", 1, "주차감지센서,스마트키");
 
+INSERT INTO BOOK(book_id, category, author_id, price, published_date) VALUES (1,	"경제",	1,	9000,	"2020-01-10 00:00:00");
+INSERT INTO BOOK(book_id, category, author_id, price, published_date) VALUES (2,	"경제",	1,	12000,	"2021-06-10 00:00:00");
+INSERT INTO BOOK(book_id, category, author_id, price, published_date) VALUES (3,	"인문",	1,	11000,	"2021-10-24 00:00:00");
+INSERT INTO BOOK(book_id, category, author_id, price, published_date) VALUES (4,	"소설",	2,	7500,	"2020-03-03 00:00:00");
+INSERT INTO BOOK(book_id, category, author_id, price, published_date) VALUES (5,	"기술",	3,	11000,	"2020-02-17 00:00:00");
+INSERT INTO BOOK(book_id, category, author_id, price, published_date) VALUES (6,	"기술",	3,	8000,	"2020-04-29 00:00:00");
+INSERT INTO BOOK(book_id, category, author_id, price, published_date) VALUES (7,	"생활",	3,	9500,	"2021-08-20 00:00:00");
 
      
