@@ -28,30 +28,65 @@ public class PG_level2_2개이하로다른비트 {
         bw.close();
     }
 
+//    public static long[] solution(long[] numbers) {
+//        long[] answer = {};
+//
+//        answer = new long[numbers.length];
+//
+//        for (int i = 0; i < numbers.length ; i++) {
+//            int j = 1;
+//            for (; j < 1000000; j++) {
+//                String str = Long.toBinaryString(numbers[i] ^ numbers[i] + j);
+//
+//                System.out.println(str);
+//
+//                int count = 0;
+//                for (int k = 0; k < str.length(); k++) {
+//                    if(str.charAt(k) == '1') {
+//                        count++;
+//                    }
+//                }
+//                if(count <= 2) {
+//                    break;
+//                }
+//            }
+//            System.out.println();
+//            answer[i] = numbers[i] + j;
+//        }
+//
+//        return answer;
+//    }
+
     public static long[] solution(long[] numbers) {
         long[] answer = {};
 
         answer = new long[numbers.length];
 
-        for (int i = 0; i < numbers.length ; i++) {
-            int j = 1;
-            for (; j < 1000000; j++) {
-                String str = Long.toBinaryString(numbers[i] ^ numbers[i] + j).;
+        for (int i = 0; i < numbers.length; i++) {
+            if(numbers[i] % 2 != 0) {
+                String std = Long.toString(numbers[i], 2);
+
+                std = '0' + std;
+
+                int idx = -1;
+                for (int j = std.length(); j > 0 ; j--) {
+                    if(std.charAt(j) == '0') {
+                        idx = j;
+                        break;
+                    }
+                }
+
+                long longIdx = (long) Math.pow(2, idx);
+
+                String str = Long.toBinaryString(numbers[i] + longIdx + longIdx>>1);
 
                 System.out.println(str);
 
-                int count = 0;
-                for (int k = 0; k < str.length(); k++) {
-                    if(str.charAt(k) == '1') {
-                        count++;
-                    }
-                }
-                if(count <= 2) {
-                    break;
-                }
+            } else {
+                answer[i] = numbers[i] + 1;
             }
-            System.out.println();
-            answer[i] = numbers[i] + j;
+
+
         }
 
         return answer;
