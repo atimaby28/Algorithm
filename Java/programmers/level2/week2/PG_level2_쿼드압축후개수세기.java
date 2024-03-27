@@ -44,7 +44,7 @@ public class PG_level2_쿼드압축후개수세기 {
     }
 
     private static void quardZip(int[][] arr, int x, int y, int length) {
-        if(checkQuard(arr, x, y, length, arr[x][y])) {
+        if(checkZip(arr, x, y, length, arr[x][y])) {
             if(arr[x][y] == 1) {
                 result[1]++;
             } else {
@@ -52,24 +52,24 @@ public class PG_level2_쿼드압축후개수세기 {
             }
 
             return;
-
         }
 
-        quardZip(arr, x, y, length / 2); // 좌상
-        quardZip(arr, x + length / 2, y, length / 2); // 우상
-        quardZip(arr, x, y + length / 2, length / 2); // 좌하
-        quardZip(arr, x + length / 2, y + length / 2, length / 2); // 우하
+        quardZip(arr, x, y, length / 2);
+        quardZip(arr, x + length / 2, y, length / 2);
+        quardZip(arr, x, y + length / 2, length / 2);
+        quardZip(arr, x + length / 2, y + length / 2, length / 2);
     }
 
-    private static boolean checkQuard(int[][] arr, int x, int y, int length, int val) {
+    private static boolean checkZip(int[][] arr, int x, int y, int length, int val) {
         for (int i = x; i < x + length; i++) {
             for (int j = y; j < y + length; j++) {
-                if(arr[i][j] != val) {
+                if(arr[x][y] != val) {
                     return false;
                 }
             }
         }
         return true;
     }
+
 
 }
