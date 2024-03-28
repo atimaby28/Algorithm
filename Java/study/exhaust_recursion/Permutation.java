@@ -19,6 +19,7 @@ public class Permutation {
 
         int[] arr = new int[n];
         int[] output = new int[n];
+        boolean[] visited = new boolean[n];
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
@@ -31,12 +32,12 @@ public class Permutation {
         System.out.println();
 
         // Permutation, Lexical order
-        permutation(arr, output, new boolean[n], 0, n, r);
+        permutation(arr, output, visited, 0, n, r);
 
         System.out.println();
 
         // permutation, Swap
-        perm(arr, 0, n, 3);
+        perm(arr, 0, n, r);
 
         bw.flush();
         bw.close();
@@ -60,7 +61,7 @@ public class Permutation {
     static void permutation(int[] arr, int[] output, boolean[] visited, int depth, int n, int r) {
         if (depth == r) {
             for (int i = 0; i < r; i++) {
-                System.out.print(arr[i] + " ");
+                System.out.print(output[i] + " ");
             }
 
             System.out.println();
