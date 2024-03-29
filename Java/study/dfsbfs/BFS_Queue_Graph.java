@@ -1,9 +1,13 @@
 package dfsbfs;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class DFS_Array {
+public class BFS_Queue_Graph {
 
     public static boolean[][] graph;
     public static boolean[] visited;
@@ -32,18 +36,27 @@ public class DFS_Array {
             graph[y][x] = true;
         }
 
-        // DFS_Array(재귀함수 호출)
-        dfs(v);
+        // BFS_Queue_Graph
+        bfs(v);
 
     }
 
-    private static void dfs(int idx) {
-        visited[idx] = true;
-        System.out.print(idx + " ");
+    // 너비우선탐색(큐)
+    public static void bfs(int v) {
+        Queue<Integer> queue = new LinkedList<>();
 
-        for (int i = 1; i < graph.length; i++) {
-            if(visited[i] == false && graph[idx][i] == true) {
-                dfs(i);
+        queue.add(v);
+        visited[v] = true;
+
+        while(!queue.isEmpty()) {
+            int idx = queue.poll();
+            System.out.print(idx + " ");
+
+            for(int i = 1; i < graph.length; i++) {
+                if(visited[i] == false && graph[idx][i] == true) {
+                    queue.add(i);
+                    visited[i] = true;
+                }
             }
         }
     }

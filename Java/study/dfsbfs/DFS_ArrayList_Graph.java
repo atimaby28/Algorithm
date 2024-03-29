@@ -5,10 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.StringTokenizer;
 
-public class DFS_List {
+public class DFS_ArrayList_Graph {
     public static ArrayList<LinkedList<Integer>> graph;
     public static boolean[] visited;
 
@@ -39,7 +38,7 @@ public class DFS_List {
             graph.get(y).add(x);
         }
 
-        // DFS_Array(재귀함수 호출)
+        // DFS_Array_Graph(재귀함수 호출)
         dfs(v);
     }
 
