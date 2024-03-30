@@ -42,14 +42,20 @@ public class DFS_ArrayList_Graph {
         dfs(v);
     }
 
-    private static void dfs(int idx) {
-        visited[idx] = true;
-        System.out.print(idx + " ");
+    private static void dfs(int v) {
+        visited[v] = true;
+        System.out.print(v + " ");
 
-        for (int i = 0; i < graph.get(idx).size(); i++) {
-            int next = graph.get(idx).get(i);
-            if(visited[next] == false) {
-                dfs(next);
+//        for (int i = 0; i < graph.get(idx).size(); i++) {
+//            int next = graph.get(idx).get(i);
+//            if(visited[next] == false) {
+//                dfs(next);
+//            }
+//        }
+
+        for (int nv : graph.get(v)) {
+            if(visited[nv] == false) {
+                dfs(nv);
             }
         }
 
