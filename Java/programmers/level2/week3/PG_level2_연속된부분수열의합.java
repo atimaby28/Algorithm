@@ -37,31 +37,18 @@ public class PG_level2_연속된부분수열의합 {
 
         int[] dp = new int[sequence.length];
 
+        int diff = 1000001;
         for (int i = 2; i < sequence.length; i++) {
-
-            dp[i - 1] = sequence[i - 2] + sequence[ i - 1];
-
+            dp[i - 1] = sequence[i - 2] + sequence[i - 1];
             for (int j = i; j < sequence.length; j++) {
-                dp[j] = sequence[j] + dp[j - 1];
-
-                if(dp[j - 1] == k) {
-                    answer[0] = i - 2;
-                    answer[1] = j - 1;
-                    break;
-                }
-
-                if(dp[j] > k) {
-                    break;
-                }
-
+                dp[j] = dp[j - 1] + sequence[j];
 
             }
 
         }
 
-        System.out.println(answer[0] + " " + answer[1]);
-
         return answer;
     }
+
 
 }
