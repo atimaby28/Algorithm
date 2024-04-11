@@ -43,8 +43,12 @@ public class 바둑이승차 {
     }
 
     private static void dfs(int[] w, int sum, int c, int depth) {
+
+        if(sum > c) {
+            return;
+        }
+
         if(depth < 0) {
-            System.out.println(sum);
             if(sum <= c) {
                 ans = Math.max(ans, sum);
             }
