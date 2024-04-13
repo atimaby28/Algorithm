@@ -56,7 +56,7 @@ public class Combination {
 
 
     // 백트래킹 사용
-    static void combination(int[] arr, boolean[] visited, int start, int n, int r) {
+    static void combination(int[] arr, boolean[] visited, int depth, int n, int r) {
         if (r == 0) {
             for (int i = 0; i < n; i++) {
                 if (visited[i]) {
@@ -69,7 +69,7 @@ public class Combination {
             return;
         }
 
-        for (int i = start; i < n; i++) {
+        for (int i = depth; i < n; i++) {
             visited[i] = true;
             combination(arr, visited, i + 1, n, r - 1);
             visited[i] = false;

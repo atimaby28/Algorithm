@@ -30,7 +30,7 @@ public class Powerset {
         System.out.println();
 
         // PowerSet, Backtracking
-        powerSet(arr, visited, n, 0);
+        powerSet(arr, visited, n);
 
         System.out.println();
 
@@ -57,10 +57,10 @@ public class Powerset {
         }
     }
 
-    static void powerSet(int[] arr, boolean[] visited, int n, int idx) {
-        if (idx == n) {
+    static void powerSet(int[] arr, boolean[] visited, int depth) {
+        if (depth == 0) {
 
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < arr.length; i++) {
                 if (visited[i] == true)
                     System.out.print(arr[i] + " ");
             }
@@ -70,11 +70,11 @@ public class Powerset {
             return;
         }
 
-        visited[idx] = false;
-        powerSet(arr, visited, n, idx + 1);
+        visited[depth - 1] = false;
+        powerSet(arr, visited, depth - 1);
 
-        visited[idx] = true;
-        powerSet(arr, visited, n, idx + 1);
+        visited[depth - 1] = true;
+        powerSet(arr, visited, depth - 1);
     }
 
     static void powerSetBit(int[] arr, int n) {

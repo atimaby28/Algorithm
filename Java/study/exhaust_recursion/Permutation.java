@@ -59,8 +59,8 @@ public class Permutation {
 
     // 사전순으로 순열 구하기
     static void permutation(int[] arr, int[] output, boolean[] visited, int depth, int n, int r) {
-        if (depth == r) {
-            for (int i = 0; i < r; i++) {
+        if (r == 0) {
+            for (int i = 0; i < depth; i++) {
                 System.out.print(output[i] + " ");
             }
 
@@ -73,7 +73,7 @@ public class Permutation {
             if (visited[i] != true) {
                 visited[i] = true;
                 output[depth] = arr[i];
-                permutation(arr, output, visited, depth + 1, n, r);
+                permutation(arr, output, visited, depth + 1, n, r - 1);
                 visited[i] = false;
             }
         }
