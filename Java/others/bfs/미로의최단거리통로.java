@@ -48,13 +48,32 @@ public class 미로의최단거리통로 {
     private static void bfs(int y, int x) {
         Queue<Point> queue = new LinkedList<>();
 
-        queue.add(new Point(y, x));
+        queue.add(new Point(y, x, 0));
 
         visted[y][x] = true;
 
         while (!queue.isEmpty()) {
             Point point = queue.poll();
-            
+
+            int cx = point.x;
+            int cy = point.y;
+            int distance = point.distance;
+
+            if(cx == 7 && cy == 7) {
+                ans = distance;
+            }
+
+            for (int i = 0; i < 4; i++) {
+                int nx = cx + dx[i];
+                int ny = cy + dy[i];
+
+                if(nx >= 1 && nx < map.length && ny >= 1 && ny < map.length) {
+                    if(map[ny][nx] == 0 && !visted[ny][nx]) {
+                        visted[ny][nx] = true;
+                        queue.offer(new Point(ny, nx, distance + 1));
+                    }
+                }
+            }
 
         }
     }
@@ -67,9 +86,29 @@ class Point {
 
     public int x;
     public int y;
+    public int distance;
 
-    Point(int y, int x) {
+    Point(int y, int x, int distance) {
         this.y = y;
         this.x = x;
+        this.distance = distance;
     }
+
 }
+
+/*
+
+input :
+7
+0 0 0 0 0 0 0
+0 1 1 1 1 1 0
+0 0 0 1 0 0 0
+1 1 0 1 0 1 1
+1 1 0 1 0 0 0
+1 0 0 0 1 0 0
+1 0 1 0 0 0 0
+
+output :
+8
+
+ */
