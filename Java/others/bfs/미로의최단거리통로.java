@@ -9,7 +9,7 @@ public class 미로의최단거리통로 {
 
     public static int ans;
     public static int[][] map;
-    public static boolean[][] visted;
+    public static boolean[][] visited;
 
     public static int[] dx = {0, 0, -1, 1};
     public static int[] dy = {-1, 1, 0, 0};
@@ -24,7 +24,7 @@ public class 미로의최단거리통로 {
         int n = Integer.parseInt(br.readLine());
 
         map = new int[n + 1][n + 1];
-        visted = new boolean[n + 1][n + 1];
+        visited = new boolean[n + 1][n + 1];
 
         for (int i = 1; i < map.length; i++) {
             st = new StringTokenizer(br.readLine());
@@ -34,7 +34,7 @@ public class 미로의최단거리통로 {
         }
 
 
-        visted[1][1] = true;
+        visited[1][1] = true;
         bfs(1, 1);
 
         int result = ans;
@@ -50,7 +50,7 @@ public class 미로의최단거리통로 {
 
         queue.add(new Point(y, x, 0));
 
-        visted[y][x] = true;
+        visited[y][x] = true;
 
         while (!queue.isEmpty()) {
             Point point = queue.poll();
@@ -68,8 +68,8 @@ public class 미로의최단거리통로 {
                 int ny = cy + dy[i];
 
                 if(nx >= 1 && nx < map.length && ny >= 1 && ny < map.length) {
-                    if(map[ny][nx] == 0 && !visted[ny][nx]) {
-                        visted[ny][nx] = true;
+                    if(map[ny][nx] == 0 && !visited[ny][nx]) {
+                        visited[ny][nx] = true;
                         queue.offer(new Point(ny, nx, distance + 1));
                     }
                 }
