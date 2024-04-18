@@ -3,6 +3,7 @@ package silver.three;
 import java.io.*;
 import java.util.StringTokenizer;
 
+// 중복 조합
 public class n과m4 {
 
     public static int[] array;
@@ -24,7 +25,7 @@ public class n과m4 {
             array[i] = i + 1;
         }
 
-        combination(array, new int[n], 0, n, m);
+        combination(array, new int[m], 0, n, m);
 
         bw.write(sb + "\n");
 
@@ -33,8 +34,8 @@ public class n과m4 {
     }
 
     public static void combination(int[] array, int[] output, int depth, int n, int m) {
-        if(depth == m) {
-            for (int i = 0; i < n; i++) {
+        if(m == 0) {
+            for (int i = output.length - 1; i >= 0; i--) {
                 sb.append(output[i] + " ");
             }
 
@@ -43,9 +44,9 @@ public class n과m4 {
             return;
         }
 
-        for (int i = 0; i < n; i++) {
-            output[depth] = array[i];
-            combination(array, output, depth + 1, n, m);
+        for (int i = depth; i < n; i++) {
+            output[m - 1] = array[i];
+            combination(array, output, i, n, m - 1);
         }
 
     }

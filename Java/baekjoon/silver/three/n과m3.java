@@ -3,6 +3,7 @@ package silver.three;
 import java.io.*;
 import java.util.StringTokenizer;
 
+// 중복 순열
 public class n과m3 {
 
     public static int[] array;
