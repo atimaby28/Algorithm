@@ -44,8 +44,8 @@ public class BFS_Queue_Graph {
     // 너비우선탐색(큐)
     public static void bfs(int v) {
         Queue<Integer> queue = new LinkedList<>();
+        queue.offer(v);
 
-        queue.add(v);
         visited[v] = true;
 
         while(!queue.isEmpty()) {

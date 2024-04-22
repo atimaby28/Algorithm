@@ -1,15 +1,18 @@
 package dfs;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class 피자배달거리 {
 
+    public static int ans = Integer.MAX_VALUE;
     public static int[][] map;
-    public static boolean[][] visited;
+    public static boolean[] visited;
 
-    public static int[] dx = {0, 0, -1, 1, -1, 1, -1, 1};
-    public static int[] dy = {-1, 1, 0, 0, -1, -1, 1, 1};
+    public static ArrayList<Point> pizzaPoint;
+    public static ArrayList<Point> housePoint;
+
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -21,16 +24,15 @@ public class 피자배달거리 {
         int m = Integer.parseInt(st.nextToken());
 
         map = new int[n][n];
-        visited = new boolean[n][n];
 
         for (int i = 0; i < map.length; i++) {
             st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < map[i].length; j++) {
+            for (int j = 0; j < map[0].length; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
-        int result = solution(map, n, m);
+        int result = solution(n, m);
 
         bw.write(result + "\n");
 
@@ -39,47 +41,65 @@ public class 피자배달거리 {
 
     }
 
-    public static int solution(int[][] map, int n, int m) {
+    public static int solution(int n, int m) {
         int answer = 0;
 
+        pizzaPoint = new ArrayList<>();
+        housePoint = new ArrayList<>();
+
         for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                if(map[i][j] == 2) {
-                    dfs(i, j, n);
+            for (int j = 0; j < map[0].length; j++) {
+                if (map[i][j] == 1) {
+                    housePoint.add(new Point(i, j));
+                } else if (map[i][j] == 2) {
+                    pizzaPoint.add(new Point(i, j));
                 }
             }
         }
+
+        visited = new boolean[pizzaPoint.size()];
+        combination(pizzaPoint.size(), m, 0);
+
+        answer = ans;
 
         return answer;
     }
 
-    private static void dfs(int y, int x, int n) {
-        if(y == map[0].length && x == map.length) {
+    private static void combination(int n, int r, int depth) {
+        if(r == 0) {
+            int sum = 0;
+            for (int i = 0; i < housePoint.size(); i++) {
+                int distance = Integer.MAX_VALUE;
+                for (int j = 0; j < pizzaPoint.size(); j++) {
+                    if(visited[j]) {
+                        distance = Math.min(distance, Math.abs(housePoint.get(i).x - pizzaPoint.get(j).x)
+                                + Math.abs(housePoint.get(i).y - pizzaPoint.get(j).y));
+                    }
+                }
+                sum += distance;
+            }
+
+            ans = Math.min(ans, sum);
+
             return;
         }
 
-        for (int i = 0; i < 8; i++) {
-            int cx = x + dx[i];
-            int cy = y + dy[i];
-
-            int k = 1;
-            while (k < n) {
-                int nx = cx * k;
-                int ny = cy * k;
-
-                if(nx >= 0 && nx < map[0].length && ny >= 0 && ny < map.length) {
-                    if(!visited[ny][nx] && map[ny][nx] == 1) {
-                        visited[ny][nx] = true;
-
-                        System.out.println(x + " " + y + " " + nx + " " + ny);
-                        dfs(ny, nx, n);
-
-                        visited[ny][nx] = false;
-                    }
-                }
-                k++;
-            }
+        for (int i = depth; i < n; i++) {
+            visited[i] = true;
+            combination(n, r - 1, i + 1);
+            visited[i] = false;
         }
+    }
+
+}
+
+class Point {
+
+    int x, y;
+
+    Point(int y, int x) {
+        this.x = x;
+        this.y = y;
     }
 
 }

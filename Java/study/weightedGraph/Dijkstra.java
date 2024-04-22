@@ -15,6 +15,7 @@ public class Dijkstra {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
@@ -42,11 +43,16 @@ public class Dijkstra {
 
         for (int i = 2; i < n + 1; i++) {
             if(distance[i] != Integer.MAX_VALUE) {
-                System.out.println(i + " : " + distance[i]);
+                sb.append(i + " : " + distance[i] + "\n");
             } else {
-                System.out.println(i + " : impossible");
+                sb.append(i + " : impossible" + "\n");
             }
         }
+
+        bw.write(sb.toString());
+
+        bw.flush();
+        bw.close();
 
     }
 
