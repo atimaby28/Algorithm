@@ -1,7 +1,7 @@
 package level2.week1;
 
 import java.io.*;
-import java.util.Arrays;
+import java.util.Locale;
 
 public class PG_level2_JadenCase문자열만들기 {
 
@@ -21,46 +21,36 @@ public class PG_level2_JadenCase문자열만들기 {
 
     public static String solution(String s) {
         String answer = "";
+        String[] strArr = s.toLowerCase().split("");
+        boolean flag = true;
 
-        boolean[] blank = new boolean[s.length()];
-
-        for (int i = 0; i < s.length(); i++) {
-            if(s.charAt(i) == ' ') {
-                blank[i] = true;
-            }
+        for(String str : strArr) {
+            answer += flag ? str.toUpperCase() : str;
+            flag = str.equals(" ") ? true : false;
         }
-
-        s = s.replaceAll("\\s+", " ");
-
-        String[] str = s.split(" ");
-
-        System.out.println(Arrays.toString(str));
-
-        String temp = "";
-        for (int i = 0; i < str.length; i++) {
-            String big = str[i].substring(0, 1).toUpperCase();
-            String last = str[i].substring(1).toLowerCase();
-
-            str[i] = big + last;
-
-            temp += str[i];
-        }
-
-        System.out.println(temp);
-        int j = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if(blank[i] == true) {
-                answer += " ";
-            }
-
-            if(blank[i] == false) {
-                answer += temp.charAt(i);
-            }
-        }
-
-        StringBuilder sb = new StringBuilder();
 
         return answer;
     }
+
+//    public static String solution(String s) {
+//        String answer = "";
+//
+//        StringBuilder sb = new StringBuilder();
+//
+//        s = s.toLowerCase();
+//
+//        sb.append(s.toUpperCase().charAt(0));
+//
+//        for (int i = 1; i < s.length(); i++) {
+//            sb.append(s.charAt(i));
+//            if(s.charAt(i - 1) == ' ' && s.charAt(i) >= 'a' && s.charAt(i) <= 'z') {
+//                sb.setCharAt(i, s.toUpperCase().charAt(i));
+//            }
+//        }
+//
+//        answer = sb.toString();
+//
+//        return answer;
+//    }
 
 }

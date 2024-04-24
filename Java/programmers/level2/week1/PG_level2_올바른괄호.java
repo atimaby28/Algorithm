@@ -1,6 +1,7 @@
 package level2.week1;
 
 import java.io.*;
+import java.util.Stack;
 
 public class PG_level2_올바른괄호 {
 
@@ -22,10 +23,33 @@ public class PG_level2_올바른괄호 {
     static boolean solution(String s) {
         boolean answer = true;
 
-        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-        System.out.println("Hello Java");
+        answer = isStack(s);
 
         return answer;
+    }
+
+    private static boolean isStack(String s) {
+        if(s.charAt(0) == ')' || s.charAt(s.length() - 1) == '(') {
+            return false;
+        }
+
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            if(s.charAt(i) == '(') {
+                stack.push('(');
+            } else if(!stack.isEmpty() && s.charAt(i) == ')'){
+                return false;
+            } else {
+                stack.pop();
+            }
+        }
+
+        if(stack.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
