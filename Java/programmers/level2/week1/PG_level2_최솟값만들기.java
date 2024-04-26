@@ -2,7 +2,6 @@ package level2.week1;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class PG_level2_최솟값만들기 {
