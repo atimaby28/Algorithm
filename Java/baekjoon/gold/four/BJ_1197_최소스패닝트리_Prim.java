@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class PG_1197_최소스패닝트리_Prim {
+public class BJ_1197_최소스패닝트리_Prim {
 
     public static int V, E;
     public static boolean[] visited;
