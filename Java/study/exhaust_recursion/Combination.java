@@ -33,7 +33,12 @@ public class Combination {
         System.out.println();
 
         // Combination, Backtracking
-        combination(arr, visited, 0, n, r);
+        combination(arr, new int[r], 0, 0, n, r);
+
+        System.out.println();
+
+        // Combination2, Backtracking
+        combination2(arr, visited, 0, n, r);
 
         System.out.println();
 
@@ -43,7 +48,6 @@ public class Combination {
         bw.flush();
         bw.close();
     }
-
     private static void nestedFor(int n) throws IOException {
         for (int i = 1; i <= n; i++) {
             for (int j = i + 1; j <= n; j++) {
@@ -54,9 +58,25 @@ public class Combination {
         }
     }
 
+    private static void combination(int[] array, int[] output, int start, int depth, int n, int r) {
+        if(depth == r) {
+            for (int i = 0; i < output.length; i++) {
+                System.out.print(output[i] + " ");
+            }
+            System.out.println();
+            return;
+        }
+
+        for (int i = start; i < n; i++) {
+            output[depth] = array[i];
+            combination(array, output, i + 1, depth + 1, n, r);
+        }
+    }
+
+
 
     // 백트래킹 사용
-    static void combination(int[] arr, boolean[] visited, int depth, int n, int r) {
+    static void combination2(int[] arr, boolean[] visited, int depth, int n, int r) {
         if (r == 0) {
             for (int i = 0; i < n; i++) {
                 if (visited[i]) {
@@ -71,7 +91,7 @@ public class Combination {
 
         for (int i = depth; i < n; i++) {
             visited[i] = true;
-            combination(arr, visited, i + 1, n, r - 1);
+            combination2(arr, visited, i + 1, n, r - 1);
             visited[i] = false;
         }
     }
