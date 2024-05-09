@@ -59,7 +59,7 @@ public class BJ_1197_최소스패닝트리_Kruskal {
                 edgeCount++;
             }
 
-            if (edgeCount == E - 1) {
+            if (edgeCount == V - 1) {
                 return weight;
             }
         }
