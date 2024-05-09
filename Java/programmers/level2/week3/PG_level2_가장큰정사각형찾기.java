@@ -31,37 +31,22 @@ public class PG_level2_가장큰정사각형찾기 {
     }
 
     public static int solution(int[][] board) {
-        int answer = 0;
+        int[][] map = new int[board.length + 1][board[0].length + 1];
 
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                if(board[i][j] == 1) {
-                    answer = Math.max(answer, findSquare(board, i, j));
+        int maxLen = 0;
+
+        for (int i = 1; i <= board.length; i++) {
+            for (int j = 1; j <= board[0].length; j++) {
+
+                if (board[i - 1][j - 1] != 0) {
+                    int min = Math.min(Math.min(map[i - 1][j], map[i][j - 1]), map[i - 1][j - 1]);
+                    map[i][j] = min + 1;
+
+                    maxLen = Math.max(maxLen, map[i][j]);
                 }
             }
         }
 
-        return answer;
-    }
-
-    public static int findSquare(int[][] board, int y, int x) {
-        int s = 1;
-        boolean flag = true;
-
-        while(flag) {
-            if(y + s > board.length - 1 || x + s > board[0].length - 1) {
-                break;
-            }
-            for (int i = y; i < y + s; i++) {
-                for (int j = x; j < x + s; j++) {
-                    if(board[i][j] == 0) {
-                        return 0;
-                    }
-                }
-            }
-            s++;
-        }
-
-        return s * s;
+        return maxLen * maxLen;
     }
 }
