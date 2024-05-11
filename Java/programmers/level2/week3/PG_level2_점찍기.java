@@ -25,15 +25,11 @@ public class PG_level2_점찍기 {
         long answer = 0;
 
         int x = 0;
-        while (k * x < d) {
+        while (k * x <= d) {
+            answer += (long) Math.sqrt(Math.pow(d, 2) - Math.pow(x * k, 2)) / k + 1;
             x++;
         }
 
-        answer += x * 2 + 1;
-
-
-
         return answer;
     }
-
 }
