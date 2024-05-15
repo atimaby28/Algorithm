@@ -46,7 +46,7 @@ public class PG_level2_타겟넘버 {
         return answer;
     }
 
-    private static void dfs(int[] numbers, int depth, int target, int result) {
+    public static void dfs(int[] numbers, int depth, int target, int result) {
         if(depth == numbers.length) {
             if(target == result) {
                 count++;
@@ -54,11 +54,8 @@ public class PG_level2_타겟넘버 {
             return;
         }
 
-        int plus = result + numbers[depth];
-        int minus = result - numbers[depth];
-
-        dfs(numbers, depth + 1, target, plus);
-        dfs(numbers, depth + 1, target, minus);
+        dfs(numbers, depth + 1, target, result + numbers[depth]);
+        dfs(numbers, depth + 1, target, result - numbers[depth]);
 
     }
 

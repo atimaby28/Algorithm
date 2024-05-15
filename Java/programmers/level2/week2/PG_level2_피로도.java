@@ -5,10 +5,9 @@ import java.util.StringTokenizer;
 
 public class PG_level2_피로도 {
 
-    static boolean[] visited;
-    static int count = 0;
+    public static int count = 0;
+    public static boolean[] visited;
 
-    public static int stress = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -46,7 +45,8 @@ public class PG_level2_피로도 {
         return count;
     }
 
-    private static void dfs(int depth, int fatigue, int[][] dungeons){
+    public static void dfs(int depth, int fatigue, int[][] dungeons){
+
         for (int i = 0; i < dungeons.length; i++){
 
             if (visited[i] || dungeons[i][0] > fatigue) {
@@ -61,4 +61,5 @@ public class PG_level2_피로도 {
         count = Math.max(count, depth);
 
     }
+
 }
