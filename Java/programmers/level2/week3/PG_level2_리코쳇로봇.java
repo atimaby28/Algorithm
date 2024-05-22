@@ -72,7 +72,7 @@ public class PG_level2_리코쳇로봇 {
 
     public static boolean isEnd(int x, int y) {
         if (x == endX && y == endY) {
-            return true;d
+            return true;
         }
         return false;
     }
