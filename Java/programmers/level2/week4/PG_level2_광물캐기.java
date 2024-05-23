@@ -34,7 +34,7 @@ public class PG_level2_광물캐기 {
 
     }
 
-    public int solution(int[] picks, String[] minerals) {
+    public static int solution(int[] picks, String[] minerals) {
         int[][] weights = {{1, 1, 1}, {5, 1, 1}, {25, 5, 1}};
         int answer = 0;
         int pickCnt = Arrays.stream(picks).sum();
