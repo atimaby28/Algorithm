@@ -10,6 +10,7 @@ public class PG_level2_게임맵최단거리 {
     public static int[] dx = {0, 0, -1, 1};
     public static int[] dy = {-1, 1, 0, 0};
 
+    public static int ans = Integer.MAX_VALUE;
     public static int[][] distance;
     public static boolean[][] visited;
 
@@ -45,10 +46,41 @@ public class PG_level2_게임맵최단거리 {
         visited = new boolean[maps.length][maps[0].length];
         distance = new int[maps.length][maps[0].length];
 
-        answer = bfs(maps, 0, 0);
+//        answer = bfs(maps, 0, 0);
+
+        dfs(maps, 0, 0, 0);
+
+        if(ans == Integer.MAX_VALUE) {
+            answer = -1;
+        } else {
+            answer = ans + 1;
+        }
 
         return answer;
     }
+
+    public static void dfs(int[][] maps, int y, int x, int count) {
+
+        if (x == maps[0].length - 1 && y == maps.length - 1) {
+            ans = Math.min(ans, count);
+            System.out.println(ans);
+            return;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            int cx = x + dx[i];
+            int cy = y + dy[i];
+
+            if (cx < 0 || cx >= maps[0].length || cy < 0 || cy >= maps.length) continue;
+
+            if (!visited[cy][cx] && maps[cy][cx] == 1) {
+                visited[cy][cx] = true;
+                dfs(maps, cy, cx, count + 1);
+                visited[cy][cx] = false;
+            }
+        }
+    }
+
 
     public static int bfs(int[][] maps, int y, int x) {
         Queue<Position> queue = new LinkedList<>();
@@ -63,7 +95,7 @@ public class PG_level2_게임맵최단거리 {
             int cx = pos.x;
             int cy = pos.y;
 
-            if(cx == maps[0].length - 1 && cy == maps.length - 1) {
+            if (cx == maps[0].length - 1 && cy == maps.length - 1) {
                 return distance[cy][cx];
             }
 
@@ -71,13 +103,13 @@ public class PG_level2_게임맵최단거리 {
                 int nx = cx + dx[i];
                 int ny = cy + dy[i];
 
-                if(nx < 0 || nx >= maps[0].length || ny < 0 || ny >= maps.length || maps[ny][nx] == 0) continue;
+                if (nx < 0 || nx >= maps[0].length || ny < 0 || ny >= maps.length || maps[ny][nx] == 0) continue;
 
-                if(!visited[ny][nx] && maps[ny][nx] == 1) {
+                if (!visited[ny][nx] && maps[ny][nx] == 1) {
                     visited[ny][nx] = true;
                     queue.offer(new Position(ny, nx));
 
-                    if(distance[ny][nx] == 0) {
+                    if (distance[ny][nx] == 0) {
                         distance[ny][nx] = distance[cy][cx] + 1;
                     }
                 }
@@ -101,6 +133,14 @@ class Position {
 }
 
 /*
+
+5 5
+1 0 1 1 1
+1 0 1 0 1
+1 0 1 1 1
+1 1 1 0 1
+0 0 0 0 1
+
 5 5
 1 0 1 1 1
 1 0 1 0 1
