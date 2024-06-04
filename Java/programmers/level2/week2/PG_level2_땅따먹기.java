@@ -6,6 +6,8 @@ import java.util.StringTokenizer;
 
 public class PG_level2_땅따먹기 {
 
+    public static int max;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -36,33 +38,43 @@ public class PG_level2_땅따먹기 {
     public static int solution(int[][] land) {
         int answer = 0;
 
-        for (int i = 0; i < land.length - 1; i++) {
-            int[] init = Arrays.copyOf(land[i + 1], land.length + 1);
-            int idx = 0;
-            for (int j = 0; j < land[i].length; j++) {
-                int max = 0;
-                for (int k = 0; k < land[i].length; k++) {
-                    if(j == k) {
-                        continue;
-                    }
-                    max = Math.max(max, land[i][j] + land[i + 1][k]);
-                }
-                System.out.println(max);
-            }
-
-            for (int k = 1; k < init.length; k++) {
-                if(init[k - 1] < init[k]) {
-                    idx = k;
-                }
-            }
-            land[i + 1][idx] = init[idx];
+        for (int i = 1; i < land.length; i++) {
+            land[i][0] += Math.max(land[i - 1][1], Math.max(land[i - 1][2], land[i - 1][3]));
+            land[i][1] += Math.max(land[i - 1][0], Math.max(land[i - 1][2], land[i - 1][3]));
+            land[i][2] += Math.max(land[i - 1][0], Math.max(land[i - 1][1], land[i - 1][3]));
+            land[i][3] += Math.max(land[i - 1][0], Math.max(land[i - 1][1], land[i - 1][2]));
         }
 
-        for (int i = 0; i < land[land.length - 1].length; i++) {
-            answer = Math.max(answer, land[land.length - 1][i]);
+        for (int i = 0; i < 4; i++) {
+            answer = Math.max(answer, land[land.length - 1][i + 1]);
         }
 
         return answer;
     }
 
+    /* dfs는 시간 초과
+    public static int solution(int[][] land) {
+        int answer = 0;
+
+        for (int i = 0; i < land[0].length; i++) {
+            dfs(land, i, 0, land[0][i]);
+        }
+
+        answer = max;
+
+        return answer;
+    }
+
+    private static void dfs(int[][] land, int x, int depth, int sum) {
+        if(depth == land.length - 1){
+            max = Math.max(max, sum);
+            return;
+        }
+
+        for (int i = 0; i < land[0].length; i++) {
+            if(i == x) continue;
+            dfs(land, i, depth + 1, sum + land[depth + 1][i]);
+        }
+    }
+*/
 }
