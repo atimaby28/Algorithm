@@ -1,12 +1,13 @@
 package level2.week2;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class PG_level2_숫자변환하기 {
 
     // public static int minVal = -1;
-    // public static int minVal = Integer.MAX_VALUE;
+//     public static int minVal = Integer.MAX_VALUE;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -26,27 +27,32 @@ public class PG_level2_숫자변환하기 {
         bw.close();
     }
 
+
     public static int solution(int x, int y, int n) {
         int answer = 0;
 
         int[] dp = new int[y + 1];
-        for (int i = x; i < y + 1; i++) {
-            if (i != x && dp[i] == 0) {
-                dp[i] = -1;
-                continue;
+
+        Arrays.fill(dp, 100);
+
+        dp[x] = 0;
+        for (int i = x; i <= y; i++) {
+
+            if (dp[i] == 100) continue;
+
+            if (i + n <= y) {
+                dp[i + n] = Math.min(dp[i + n], dp[i] + 1);
             }
             if (i * 2 <= y) {
-                dp[i * 2] = (dp[i * 2] == 0) ? dp[i] + 1 : Math.min(dp[i] + 1, dp[i * 2]);
+                dp[i * 2] = Math.min(dp[i * 2], dp[i] + 1);
             }
             if (i * 3 <= y) {
-                dp[i * 3] = (dp[i * 3] == 0) ? dp[i] + 1 : Math.min(dp[i] + 1, dp[i * 3]);
-            }
-            if (i + n <= y) {
-                dp[i + n] = (dp[i + n] == 0) ? dp[i] + 1 : Math.min(dp[i] + 1, dp[i + n]);
+                dp[i * 3] = Math.min(dp[i * 3], dp[i] + 1);
             }
         }
 
-        answer = dp[y];
+        if (dp[y] == Integer.MAX_VALUE) return -1;
+        else answer = dp[y];
 
         return answer;
 
@@ -115,3 +121,5 @@ public class PG_level2_숫자변환하기 {
 //    }
 
 }
+
+
