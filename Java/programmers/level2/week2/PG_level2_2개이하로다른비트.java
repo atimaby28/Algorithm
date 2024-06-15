@@ -57,36 +57,47 @@ public class PG_level2_2개이하로다른비트 {
 //        return answer;
 //    }
 
-    public static long[] solution(long[] numbers) {
-        long[] answer = {};
+//    public static long[] solution(long[] numbers) {
+//        long[] answer = {};
+//
+//        answer = new long[numbers.length];
+//
+//        for (int i = 0; i < numbers.length; i++) {
+//            if(numbers[i] % 2 != 0) {
+//                String std = Long.toString(numbers[i], 2);
+//
+//                std = '0' + std;
+//
+//                int idx = -1;
+//                for (int j = std.length(); j > 0 ; j--) {
+//                    if(std.charAt(j) == '0') {
+//                        idx = j;
+//                        break;
+//                    }
+//                }
+//
+//                long longIdx = (long) Math.pow(2, idx);
+//
+//                String str = Long.toBinaryString(numbers[i] + longIdx + longIdx>>1);
+//
+//                System.out.println(str);
+//
+//            } else {
+//                answer[i] = numbers[i] + 1;
+//            }
+//
+//
+//        }
+//
+//        return answer;
+//    }
 
-        answer = new long[numbers.length];
+    public static long[] solution(long[] numbers) {
+        long[] answer = numbers.clone();
 
         for (int i = 0; i < numbers.length; i++) {
-            if(numbers[i] % 2 != 0) {
-                String std = Long.toString(numbers[i], 2);
-
-                std = '0' + std;
-
-                int idx = -1;
-                for (int j = std.length(); j > 0 ; j--) {
-                    if(std.charAt(j) == '0') {
-                        idx = j;
-                        break;
-                    }
-                }
-
-                long longIdx = (long) Math.pow(2, idx);
-
-                String str = Long.toBinaryString(numbers[i] + longIdx + longIdx>>1);
-
-                System.out.println(str);
-
-            } else {
-                answer[i] = numbers[i] + 1;
-            }
-
-
+            answer[i]++; // x보다 큰수로 만든다.
+            answer[i] += (answer[i] ^ numbers[i]) >> 2;
         }
 
         return answer;
