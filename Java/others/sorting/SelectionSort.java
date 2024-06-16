@@ -15,16 +15,20 @@ public class SelectionSort {
     private static int[] selectionSort(int[] arr, int n) {
 
         for (int i = 0; i < n - 1; i++) {
-            int idx = i;
+
+            int minIdx = i;
+
+            // 최솟값을 갖고있는 인덱스 찾기
             for (int j = i + 1; j < n; j++) {
-                if(arr[j] < arr[idx]) {
-                    idx = j;
+                if(arr[j] < arr[minIdx]) {
+                    minIdx = j;
                 }
             }
 
+            // i 번째 값과 찾은 최솟값을 서로 교환
             int temp = arr[i];
-            arr[i] = arr[idx];
-            arr[idx] = temp;
+            arr[i] = arr[minIdx];
+            arr[minIdx] = temp;
 
         }
 

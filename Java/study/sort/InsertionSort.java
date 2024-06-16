@@ -22,7 +22,7 @@ public class InsertionSort {
             int j = i - 1;
 
             // 이전의 원소가 더 크다면 데이터는 하나씩 밀려난다.
-            while (j >= 0 && arr[j] > target) {
+            while (j >= 0 && target < arr[j]) {
                 arr[j + 1] = arr[j];
                 j--;
             }
