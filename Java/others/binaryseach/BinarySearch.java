@@ -31,7 +31,7 @@ public class BinarySearch {
     }
 
     public static int solution(int[] array, int target) {
-        int answer = 0;
+        int answer = -1;
 
         Arrays.sort(array);
 

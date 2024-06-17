@@ -19,6 +19,7 @@ public class HeapSort {
 
     public static void heapSort(int[] arr) {
         int lastIndex = arr.length - 1;
+
         buildHeap(arr, lastIndex);
 
         for(int i = lastIndex; i > 0; i--) {
