@@ -35,7 +35,7 @@ public class BinarySearch {
         } else if(compResult < 0) {
             return binSearch(data, begin, middle - 1, target);
         } else {
-            return binSearch(data, middle ㅊ+ 1, end, target);
+            return binSearch(data, middle + 1, end, target);
         }
 
     }
