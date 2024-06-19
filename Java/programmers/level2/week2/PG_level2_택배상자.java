@@ -35,37 +35,23 @@ public class PG_level2_택배상자 {
     public static int solution(int[] order) {
         int answer = 0;
 
-        Queue<Integer> queue = new LinkedList<>();
-        Stack<Integer> stack = new Stack<>();
+        Stack<Integer> assist = new Stack<>();
+        Queue<Integer> conveyorBelt = new LinkedList<>();
 
+        int cnt = 0;
         for (int i = 0; i < order.length; i++) {
-            queue.add(i + 1);
-//            if(order[0] != queue.peek()) {
-//                stack.push(queue.poll());
-//            }
+            assist.add(i + 1);
+
+            while (!assist.isEmpty()) {
+                if (assist.peek() == order[cnt]) {
+                    conveyorBelt.offer(assist.pop());
+                    cnt++;
+                } else break;
+
+            }
         }
 
-        int idx = 0;
-        while (idx < order.length) {
-            if(!stack.isEmpty() && (stack.peek() == order[idx])) {
-                stack.pop();
-                answer++;
-                idx++;
-                continue;
-            }
-
-            if(!queue.isEmpty() && (queue.peek() == order[idx])) {
-                queue.poll();
-                answer++;
-                idx++;
-                continue;
-            }
-
-            if(!queue.isEmpty()) {
-                stack.push(queue.poll());
-            }
-
-        }
+        answer = conveyorBelt.size();
 
         return answer;
     }
