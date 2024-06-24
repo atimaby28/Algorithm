@@ -76,7 +76,7 @@ public class PG_level2_큰수만들기 {
 //        return answer;
 //    }
 
-    public String solution(String number, int k) {
+    public static String solution(String number, int k) {
         char[] result = new char[number.length() - k];
         Stack<Character> stack = new Stack<>();
 
