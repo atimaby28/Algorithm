@@ -38,12 +38,12 @@ public class PG_level2_두큐합같게만들기 {
     }
 
     public static int solution(int[] queue1, int[] queue2) {
-        int answer = -2;
+        int answer = 0;
 
         Queue<Integer> que1 = new LinkedList<>();
         Queue<Integer> que2 = new LinkedList<>();
 
-        int sum1 = 0, sum2 = 0;
+        long sum1 = 0, sum2 = 0;
         for (int i = 0; i < queue1.length; i++) {
             sum1 += queue1[i];
             que1.offer(queue1[i]);
@@ -51,33 +51,30 @@ public class PG_level2_두큐합같게만들기 {
             que2.offer(queue2[i]);
         }
 
-        int target = (sum1 + sum2) / 2;
+        while (sum1 != sum2) {
 
-        int cnt = 0;
-        while(sum1 != sum2) {
-
-            if(sum1 > target) {
-                int num = que1.poll();
-                que2.offer(num);
-                sum1 -= num;
-                sum2 += num;
-            } else if(sum1 < target) {
-                int num = que2.poll();
-                que1.offer(num);
-                sum1 += num;
-                sum2 -= num;
-            }
-
-            if(cnt > queue1.length + queue2.length + 1) {
-                cnt = -1;
+            if(que1.isEmpty() || que2.isEmpty() || 500_000 < answer) {
+                answer = -1;
                 break;
             }
 
-            cnt++;
+            if(sum1 > sum2) {
+                int que1Ele = que1.poll();
+                sum1 -= que1Ele;
+                sum2 += que1Ele;
+                que2.offer(que1Ele);
+            } else if(sum1 < sum2) {
+                int que2Ele = que2.poll();
+                sum1 += que2Ele;
+                sum2 -= que2Ele;
+                que1.offer(que2Ele);
+            } else {
+                break;
+            }
+
+            answer++;
 
         }
-
-        answer = cnt;
 
         return answer;
     }

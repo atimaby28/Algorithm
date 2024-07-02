@@ -25,7 +25,7 @@ public class PG_level2_유사칸토어비트열 {
 
     }
 
-    public int solution(int n, long l, long r) {
+    public static int solution(int n, long l, long r) {
         int answer = 0;
 
         long cntR = getOneCount(n, r, 0); // r까지 1의 개수
@@ -36,7 +36,7 @@ public class PG_level2_유사칸토어비트열 {
         return answer;
     }
 
-    public long getOneCount(int n, long target, long sum) {
+    public static long getOneCount(int n, long target, long sum) {
         if (n == 1) {
             if (target <= 2)
                 return sum + target;
