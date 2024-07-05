@@ -32,6 +32,12 @@ public class PG_level2_연속된부분수열의합 {
 
     }
 
+    private static int[] solution(int[] sequence, int k) {
+        int[] answer = {};
+
+        return answer;
+    }
+
     // 시간초과 코드
 //    public static int[] solution(int[] sequence, int k) {
 //        int[] answer = {0, 0};
