@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 public class PG_level2_수식최대화 {
 
+    public static final String[] operations = {"+", "-", "*"};
     public static List<List<String>> list = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
@@ -26,14 +27,14 @@ public class PG_level2_수식최대화 {
 
     public static long solution(String expression) {
         long answer = 0;
-        boolean[] visited = new boolean[3];
-        String[] operationTypes = {"-", "+", "*"};
 
+        boolean[] visited = new boolean[3];
         // 연산자 우선순위 모든 경우의 수 계산
-        permutation(new ArrayList<>(), operationTypes, visited);
+        permutation(new ArrayList<>(), operations, visited);
 
         // 연산자를 " "로 치환 후 split 값들을 Long 값으로 변환 후 toList
-        List<Long> numbers = Arrays.stream(expression.replaceAll("-|\\*|\\+", " ").split(" "))
+        // 연산자를 치환하는 정규식은 "-|\\*|\\+" 또는 "[+-*]"로 나타낸다.
+        List<Long> numbers = Arrays.stream(expression.replaceAll("[-*+]", " ").split(" "))
                 .map(Long::parseLong).collect(Collectors.toList());
         // 숫자를 공백으로 치환 후 toList
         List<String> collect = Arrays.stream(expression.replaceAll("[0-9]", "").split(""))
@@ -48,6 +49,13 @@ public class PG_level2_수식최대화 {
     }
 
     static long solve(List<String> strings, List<Long> numbers, List<String> operations) {
+
+
+        System.out.println("strings = " + strings);
+        System.out.println("numbers = " + numbers);
+        System.out.println("operations = " + operations);
+
+
         // 리스트에 remove 메서드를 사용하기 위해서 복사
         List<Long> numbersClone = new ArrayList<>(numbers);
         List<String> operationsClone = new ArrayList<>(operations);
@@ -84,7 +92,7 @@ public class PG_level2_수식최대화 {
     }
 
     static void permutation(ArrayList<String> arrayList, String[] orders, boolean[] visited) {
-        if (arrayList.size() == 3) {
+        if (arrayList.size() == operations.length) {
             list.add(arrayList);
             return;
         }

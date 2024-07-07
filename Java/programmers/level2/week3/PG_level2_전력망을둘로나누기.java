@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 
 public class PG_level2_전력망을둘로나누기 {
 
-    private static ArrayList<Integer>[] adjList;
+    private static ArrayList<ArrayList<Integer>> adjList;
     private static int N, answer;
 
     public static int[][] wires;
@@ -44,15 +44,15 @@ public class PG_level2_전력망을둘로나누기 {
         answer = n - 1;
 
         // ❶ 전선의 연결 정보를 저장할 인접 리스트 초기화
-        adjList = new ArrayList[n + 1];
-        for (int i = 1; i <= n; i++) {
-            adjList[i] = new ArrayList<>();
+        adjList = new ArrayList<>();
+        for (int i = 0; i < n + 1; i++) {
+            adjList.add(new ArrayList<>());
         }
 
         // ❷ 전선의 연결 정보를 인접 리스트에 저장
         for (int[] wire : wires) {
-            adjList[wire[0]].add(wire[1]);
-            adjList[wire[1]].add(wire[0]);
+            adjList.get(wire[0]).add(wire[1]);
+            adjList.get(wire[1]).add(wire[0]);
         }
 
         visited = new boolean[n + 1];
@@ -69,7 +69,7 @@ public class PG_level2_전력망을둘로나누기 {
         // ❹ 자식 노드의 수를 저장하고 반환할 변수 선언
         int sum = 0;
         // ❺ 연결된 모든 전선을 확인
-        for (int next : adjList[now]) {
+        for (int next : adjList.get(now)) {
             if (!visited[next]) {
                 // ❻ (전체 노드 - 자식 트리의 노드 수) - (자식 트리의 노드 수) 의 절대값이 가장 작은 값을 구함
                 int cnt = dfs(next); // 자식 트리가 가진 노드의 수
