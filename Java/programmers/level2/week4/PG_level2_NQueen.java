@@ -4,11 +4,8 @@ import java.io.*;
 
 public class PG_level2_NQueen {
 
+    public static int answer;
     public static int[] board;
-    public static boolean[][] visited;
-
-    public static int[] dx = {0, 0, -1, 1, -1, 1, 1, -1};
-    public static int[] dy = {-1, 1, 0, 0, -1, -1, 1, 1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,40 +25,59 @@ public class PG_level2_NQueen {
         int answer = 0;
 
         board = new int[n];
-        visited = new boolean[n][n];
 
-        for (int i = 0; i < n; i++) {
-            visited[0][i] = true;
-            dfs(n, 0, i);
-        }
+        dfs(0, n);
+        answer = backTrack(0, board, n);
 
         return answer;
     }
 
-    private static void dfs(int n, int y, int x) {
-        if(x == n) {
+    public static void dfs(int depth, int n) {
+
+        if(depth == n) {
+            answer++;
             return;
         }
 
-        for (int i = 0; i < 8; i++) {
-            int nx = x + dx[i];
-            int ny = y + dy[i];
+        for(int i = 0; i < n; i++) {
+            board[depth] = i;
 
-            if(nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
-
-            visited[ny][nx] = true;
-            if(isValid(ny)) dfs(n, ny + 1, nx);
-            visited[ny][nx] = false;
-
+            if(isValid(depth)) {
+                dfs(depth + 1, n);
+            }
         }
     }
 
-    private static boolean isValid(int ny) {
-        // 마지막으로 놓여진 것과 이전의 것들을 비교
-        for (int j = 0; j < ny; j++) {
-            if (board[ny] == board[j]) return false;
-            if (Math.abs(ny - j) == Math.abs(board[ny] - board[j])) return false;
+    // dfs 탐색을 void가 아닌 int로 반환하는 경우
+    public static int backTrack(int depth, int[] board, int n) {
+        int sum = 0;
+        if (depth == n) {
+            return 1;
+        } else {
+            for (int i = 0; i < n; i++) {
+                board[depth] = i;
+                if (isValid(depth, board)) {
+                    sum += backTrack(depth + 1, board, n);
+                }
+            }
         }
+        return sum;
+    }
+
+    public static boolean isValid(int depth) {
+        for(int i = 0; i < depth; i++) {
+            if(board[depth] == board[i]) return false;
+            if(Math.abs(i - depth) == Math.abs(board[i] - board[depth])) return false;
+        }
+
+        return true;
+    }
+
+    public static boolean isValid(int depth, int[] board) {
+        for(int i = 0; i < depth; i++) {
+            if(board[depth] == board[i] || (Math.abs(i - depth) == Math.abs(board[i] - board[depth]))) return false;
+        }
+
         return true;
     }
 
