@@ -54,8 +54,8 @@ public class PG_level2_NQueen {
         if (depth == n) {
             return 1;
         } else {
-            for (int i = 0; i < n; i++) {
-                board[depth] = i;
+            for (int xPos = 0; xPos < n; xPos++) {
+                board[depth] = xPos;
                 if (isValid(depth, board)) {
                     sum += backTrack(depth + 1, board, n);
                 }
@@ -64,6 +64,7 @@ public class PG_level2_NQueen {
         return sum;
     }
 
+    // 세로 : Math.abs(i - depth), 가로 : Math.abs(board[i] - board[depth])
     public static boolean isValid(int depth) {
         for(int i = 0; i < depth; i++) {
             if(board[depth] == board[i]) return false;
