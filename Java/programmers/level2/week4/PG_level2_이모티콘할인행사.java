@@ -5,10 +5,11 @@ import java.util.StringTokenizer;
 
 public class PG_level2_이모티콘할인행사 {
 
+    // 회원 가입자 수
     public static int joinMember = 0;
+    // 총 수익금
     public static int totalRevenue = 0;
 
-    public static boolean[] visited;
     public static double[] rate = {0.1, 0.2, 0.3, 0.4};
 
     public static void main(String[] args) throws IOException {
@@ -49,7 +50,6 @@ public class PG_level2_이모티콘할인행사 {
     public static int[] solution(int[][] users, int[] emoticons) {
         int[] answer = {};
 
-        visited = new boolean[rate.length];
         permutation(rate, 0, new double[emoticons.length], users, emoticons);
 
         answer = new int[]{joinMember, totalRevenue};
@@ -66,10 +66,8 @@ public class PG_level2_이모티콘할인행사 {
         }
 
         for (int i = 0; i < rate.length; i++) {
-            visited[i] = true;
             output[depth] = rate[i];
             permutation(rate, depth + 1, output, users, emoticons);
-            visited[i] = false;
         }
 
     }

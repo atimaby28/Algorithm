@@ -54,7 +54,7 @@ public class PG_level2_숫자블록 {
         }
 
         if (!arrayList.isEmpty()) {
-            return arrayList.get(arrayList.size() - 1);
+            return arrayList.getLast();
         }
 
         return 1;
