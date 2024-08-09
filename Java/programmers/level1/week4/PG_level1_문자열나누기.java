@@ -23,19 +23,26 @@ public class PG_level1_문자열나누기 {
     }
 
     public static int solution(String s) {
-        char first = s.charAt(0);
-        int firstNum = 0;
-        int diff = 0;
-        int result = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (firstNum == diff) {
-                result++;
-                first = s.charAt(i);
+        int answer = 0;
+
+        char firstChar = s.charAt(0);
+
+        int firstCount = 0;
+        int diffCount = 0;
+
+        for(int i = 0; i < s.length(); i++) {
+
+            if(firstCount == diffCount) {
+                answer++;
+                firstChar = s.charAt(i);
             }
-            if (s.charAt(i) == first) firstNum++;
-            else diff++;
+
+            if(s.charAt(i) == firstChar) firstCount++;
+            else diffCount++;
+
         }
-        return result;
+
+        return answer;
     }
 
 }
