@@ -1,4 +1,4 @@
-package level3;
+package level3.week1;
 
 import java.io.*;
 import java.util.StringTokenizer;
