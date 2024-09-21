@@ -15,13 +15,13 @@ public class PG_level3_네트워크 {
 
         int k = Integer.parseInt(st.nextToken());
 
-        int[][] computers = new int[k][3];
+        int[][] computers = new int[k][k];
 
         for (int i = 0; i < k; i++) {
             st = new StringTokenizer(br.readLine());
-            computers[i][0] = Integer.parseInt(st.nextToken());
-            computers[i][1] = Integer.parseInt(st.nextToken());
-            computers[i][2] = Integer.parseInt(st.nextToken());
+            for (int j = 0; j < k; j++) {
+                computers[i][j] = Integer.parseInt(st.nextToken());
+            }
         }
 
         int result = solution(k, computers);
@@ -35,31 +35,53 @@ public class PG_level3_네트워크 {
     public static int solution(int n, int[][] computers) {
         int answer = 0;
 
-        visited = new boolean[n + 1];
+        visited = new boolean[n];
 
-        for(int i = 1; i < n + 1; i++) {
-            answer += bfs(i, computers);
+        for(int i = 0; i < n; i++) {
+            if(!visited[i]) {
+                answer += dfs(i, computers);
+                //answer += bfs(i, computers);
+            }
         }
 
         return answer;
     }
 
-    public static int bfs(int n, int[][] computers) {
+    public static int dfs(int computer, int[][] computers) {
+        visited[computer] = true;
+
+        int connect = 1;
+
+        for(int i = 0; i < computers[computer].length; i++) {
+            if(!visited[i] && computers[computer][i] == 1) {
+                dfs(i, computers);
+            }
+        }
+
+        return connect;
+    }
+
+    public static int bfs(int computer, int[][] computers) {
         Queue<Integer> queue = new LinkedList<>();
 
-        queue.offer(n);
+        visited[computer] = true;
 
-        visited[n] = true;
+        queue.offer(computer);
+
+        int connect = 1;
 
         while(!queue.isEmpty()) {
             int k = queue.poll();
 
-            for(int[] computer : computers) {
-                if(!visited[n]) {
-
+            for(int i = 0; i < computers[k].length; i++) {
+                if(!visited[i] && computers[k][i] == 1) {
+                    visited[i] = true;
+                    queue.offer(i);
                 }
             }
         }
+
+        return connect;
 
     }
 

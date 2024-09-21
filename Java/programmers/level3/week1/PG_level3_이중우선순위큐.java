@@ -19,7 +19,7 @@ public class PG_level3_이중우선순위큐 {
             operations[i] = br.readLine();
         }
 
-        String[] result = solution(operations);
+        int[] result = solution(operations);
 
         bw.write(result + "\n");
 
@@ -27,7 +27,7 @@ public class PG_level3_이중우선순위큐 {
         bw.close();
     }
 
-    public int[] solution(String[] operations) {
+    public static int[] solution(String[] operations) {
         int[] answer = new int[2];
 
         PriorityQueue<Integer> pqMin = new PriorityQueue<>();
@@ -50,20 +50,15 @@ public class PG_level3_이중우선순위큐 {
 
             if(data[0].equals("D")) {
                 if(num > 0) {
-                    int k = pqMax.poll();
-                    pqMin.remove(k);
+                    pqMin.remove(pqMax.poll());
                 } else {
-                    int k = pqMin.poll();
-                    pqMax.remove(k);
+                    pqMax.remove(pqMin.poll());
                 }
             }
 
         }
 
-        if(pqMin.isEmpty() && pqMax.isEmpty()) {
-            answer[0] = 0;
-            answer[1] = 0;
-        } else {
+        if(!pqMin.isEmpty() && !pqMax.isEmpty()) {
             answer[0] = pqMax.poll();
             answer[1] = pqMin.poll();
         }
