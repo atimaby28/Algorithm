@@ -187,3 +187,6 @@ dmypy.json
 
 # out
 out/
+
+# table
+/SQL/Programmers/table/
