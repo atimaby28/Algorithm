@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.*;
 
 public class 최대수입스케줄 {
+
+    static int n, max = Integer.MIN_VALUE;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -33,24 +36,31 @@ public class 최대수입스케줄 {
 
     private static int solution(int[][] list) {
         int answer = 0;
-
-        PriorityQueue<Schedule> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
+        ArrayList<Schedule> arrayList = new ArrayList<>();
 
         for (int[] schedule : list) {
-            priorityQueue.offer(new Schedule(schedule[0], schedule[1]));
+            arrayList.add(new Schedule(schedule[0], schedule[1]));
+            if (schedule[1] > max) max = schedule[1];
         }
 
-        for (Schedule schedule : priorityQueue) {
-            answer += schedule.income;
-            System.out.println(schedule.income + " "  + schedule.limitDate);
+        Collections.sort(arrayList);
+
+        System.out.println(arrayList);
+
+        int j = 0;
+        for (int i = max; i >= 1; i--) {
+            for (; j < n; j++) {
+                if (arrayList.get(j).limitDate < i) break;
+                priorityQueue.offer(arrayList.get(j).income);
+            }
+            if (!priorityQueue.isEmpty()) answer += priorityQueue.poll();
         }
-
-
         return answer;
     }
 }
 
-class Schedule implements Comparable<Schedule>{
+class Schedule implements Comparable<Schedule> {
     int income, limitDate;
 
     Schedule(int income, int limitDay) {
@@ -60,7 +70,7 @@ class Schedule implements Comparable<Schedule>{
 
     @Override
     public int compareTo(Schedule s) {
-        return Integer.compare(this.limitDate, s.limitDate);
+        return Integer.compare(s.limitDate, this.limitDate);
     }
 
 }
