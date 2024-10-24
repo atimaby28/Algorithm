@@ -27,14 +27,15 @@ public class QuickSort {
         if (rightIdx <= leftIdx) return;
 
         // Partition the array and get the pivot index
-        int pivotIndex = partition(array, leftIdx, rightIdx);
+        int pivotIndex = whilePartition(array, leftIdx, rightIdx);
 
         // Recursively sort elements before and after partition
         quickSort(array, leftIdx, pivotIndex - 1);   // Sort left side of pivot
         quickSort(array, pivotIndex + 1, rightIdx);  // Sort right side of pivot
     }
 
-    private static int partition(int[] array, int leftIdx, int rightIdx) {
+    // while loop partition
+    private static int whilePartition(int[] array, int leftIdx, int rightIdx) {
         int pivot = array[leftIdx]; // Choose the first element as the pivot
 
         int leftStartIdx = leftIdx + 1; // Start from the next element
@@ -61,6 +62,23 @@ public class QuickSort {
         swap(array, leftIdx, rightStartIdx);
 
         return rightStartIdx; // Return the new pivot position
+    }
+
+    // for loop partition
+    private static int forPartition(int[] array, int leftIdx, int rightIdx) {
+        int pivot = array[leftIdx]; // Choosing the first element as the pivot
+        int leftStartIdx = leftIdx + 1; // Pointer for the larger element
+
+        for (int rightStartIdx = leftIdx + 1; rightStartIdx <= rightIdx; rightStartIdx++) {
+            if (array[rightStartIdx] < pivot) {
+                swap(array, leftStartIdx, rightStartIdx); // Swap if the element is less than the pivot
+                leftStartIdx++;
+            }
+        }
+
+        swap(array, leftIdx, leftStartIdx - 1); // Place pivot in the correct position
+
+        return leftStartIdx - 1; // Return the partition index
     }
 
     private static void swap(int[] array, int left, int right) {
