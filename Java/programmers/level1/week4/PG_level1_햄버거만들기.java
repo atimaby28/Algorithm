@@ -1,10 +1,11 @@
 package level1.week4;
 
 import java.io.*;
-import java.util.Stack;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class PG_level1_햄버거만들기 {
+
+    public static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -32,13 +33,17 @@ public class PG_level1_햄버거만들기 {
     public static int solution(int[] ingredient) {
         int answer = 0;
 
-        Stack<String> stack = new Stack<>();
+        visited = new boolean[ingredient.length];
 
-        for (int i = 0; i < ingredient.length; i++) {
-
-        }
+        answer += dfs(ingredient, 0);
 
         return answer;
+    }
+
+    private static int dfs(int[] ingredient, int depth) {
+        if(depth == 4) return 1;
+
+        dfs(ingredient[depth], depth + 1);
     }
 
 }
