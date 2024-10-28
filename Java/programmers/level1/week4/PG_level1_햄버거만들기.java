@@ -15,14 +15,14 @@ public class PG_level1_햄버거만들기 {
 
         int p = Integer.parseInt(br.readLine());
 
-        int[] ingredient = new int[p];
+        int[] ingredients = new int[p];
 
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < ingredient.length; i++) {
-            ingredient[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < ingredients.length; i++) {
+            ingredients[i] = Integer.parseInt(st.nextToken());
         }
 
-        int result = solution(ingredient);
+        int result = solution(ingredients);
 
         bw.write(result + "\n");
 
@@ -30,20 +30,29 @@ public class PG_level1_햄버거만들기 {
         bw.close();
     }
 
-    public static int solution(int[] ingredient) {
+    public static int solution(int[] ingredients) {
         int answer = 0;
 
-        visited = new boolean[ingredient.length];
+        Stack<Integer> stack = new Stack<>();
 
-        answer += dfs(ingredient, 0);
+        for(int ingredient : ingredients) {
+            stack.push(ingredient);
+
+            if (stack.size() >= 4 && stack.get(stack.size() - 1) == 1 && stack.get(stack.size() - 2) == 3
+                    && stack.get(stack.size() - 3) == 2 && stack.get(stack.size() - 4) == 1) {
+                stack.pop();
+                stack.pop();
+                stack.pop();
+                stack.pop();
+
+                answer++;
+            }
+        }
 
         return answer;
     }
 
-    private static int dfs(int[] ingredient, int depth) {
-        if(depth == 4) return 1;
-
-        dfs(ingredient[depth], depth + 1);
-    }
 
 }
+
+//[2, 1, 1, 2, 3, 1, 2, 3, 1]
