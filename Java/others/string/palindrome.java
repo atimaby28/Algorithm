@@ -10,7 +10,7 @@ public class palindrome {
 
         String str = br.readLine();
 
-        String result = solution(str);
+        String result = palindrome_loop(str);
 
         bw.write(result);
 
@@ -20,8 +20,8 @@ public class palindrome {
         bw.close();
     }
 
-    private static String solution(String str) {
-        String answer = "YES";
+    private static String palindrome_loop(String str) {
+        String answer = "Yes";
 
         str = str.toUpperCase();
 
@@ -33,4 +33,28 @@ public class palindrome {
 
         return answer;
     }
+
+    private static String palindrome_stringBuilder(String str) {
+        String answer = "Yes";
+
+        String reverse = new StringBuilder(str).reverse().toString();
+
+        if(!str.equalsIgnoreCase(reverse)) answer = "No";
+
+        return answer;
+    }
+
+    private static String palindrome_regx(String str) {
+        String answer = "Yes";
+
+        // Only Alphabet
+        str = str.toUpperCase().replaceAll("[^A-Z]", "");
+
+        String reverse = new StringBuilder(str).reverse().toString();
+
+        if(!str.equalsIgnoreCase(reverse)) answer = "No";
+
+        return answer;
+    }
+
 }
