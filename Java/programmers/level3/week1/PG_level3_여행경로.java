@@ -52,15 +52,15 @@ public class PG_level3_여행경로 {
     }
 
     private static void dfs(String departure, String route, String[][] tickets, int depth) {
-        if(depth == tickets.length) {
+        if (depth == tickets.length) {
             // System.out.println(route);
             list.add(route);
 
             return;
         }
 
-        for(int i=0; i<tickets.length; i++) {
-            if(!visited[i] && departure.equals(tickets[i][0])) {
+        for (int i = 0; i < tickets.length; i++) {
+            if (!visited[i] && departure.equals(tickets[i][0])) {
                 visited[i] = true;
                 dfs(tickets[i][1], route + " " + tickets[i][1], tickets, depth + 1);
                 visited[i] = false;
