@@ -35,7 +35,7 @@ public class PG_level3_디스크컨트롤러 {
     public static int solution(int[][] jobs) {
         int answer = 0;
 
-        
+
 
         return answer;
     }
