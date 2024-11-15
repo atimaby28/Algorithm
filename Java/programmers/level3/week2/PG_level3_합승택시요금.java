@@ -78,7 +78,7 @@ public class PG_level3_합승택시요금 {
 //    }
 
 //  Dijkstra 풀이
-    
+
     public static int solution(int n, int s, int a, int b, int[][] fares) {
         int answer = Integer.MAX_VALUE;
 
@@ -113,6 +113,7 @@ public class PG_level3_합승택시요금 {
     static int[] dijkstra (int start, int[] costs) {
         PriorityQueue<Edge> pq = new PriorityQueue<>();
         pq.offer(new Edge(start, 0));
+
         costs[start] = 0;
 
         while (!pq.isEmpty()) {
