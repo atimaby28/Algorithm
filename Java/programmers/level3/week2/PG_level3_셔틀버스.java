@@ -38,6 +38,7 @@ public class PG_level3_셔틀버스 {
     public static String solution(int n, int t, int m, String[] timetable) {
         // 1. 크루의 도착 시간을 분으로 변환하여 정렬
         List<LocalTime> crewTimes = new ArrayList<>();
+
         for (String time : timetable) {
             crewTimes.add(LocalTime.parse(time));
         }
@@ -46,6 +47,7 @@ public class PG_level3_셔틀버스 {
 
         // 2. 셔틀 버스 시간표 생성
         List<LocalTime> shuttleTimes = new ArrayList<>();
+
         LocalTime firstShuttle = LocalTime.of(9, 0);
 
         for (int i = 0; i < n; i++) {
@@ -55,6 +57,7 @@ public class PG_level3_셔틀버스 {
         // 3. 셔틀 운행 시뮬레이션
         int crewIndex = 0;
         LocalTime lastPossibleTime = LocalTime.MIN;
+
         for (LocalTime shuttleTime : shuttleTimes) {
             int capacity = m;
 

@@ -13,14 +13,14 @@ public class Lis_DP {
 
         int n = Integer.parseInt(br.readLine());
 
-        int[] arr = new int[n];
+        int[] array = new int[n];
 
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < array.length; i++) {
+            array[i] = Integer.parseInt(st.nextToken());
         }
 
-        int result = solution(n, arr);
+        int result = solution(array);
 
         bw.write(result + "\n");
 
@@ -28,26 +28,26 @@ public class Lis_DP {
         bw.close();
     }
 
-    private static int solution(int n, int[] arr) {
+    private static int solution(int[] array) {
         int answer = 0;
 
-        int[] dp = new int[n];
+        int[] dp = new int[array.length];
 
-        int max = 1;
+        dp[0] = 1;
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i < dp.length; i++) {
 
-            dp[i] = 1;
+            int max = 0;
 
             for (int j = i - 1; j >= 0; j--) {
-                if(arr[j] < arr[i]) {
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
-                }
+                if(array[j] < array[i] && dp[j] > max)
+                    max = dp[j];
             }
-            max = Math.max(max, dp[i]);
-        }
 
-        answer = max;
+            dp[i] = max + 1;
+            answer = Math.max(answer, dp[i]);
+
+        }
 
         return answer;
     }
