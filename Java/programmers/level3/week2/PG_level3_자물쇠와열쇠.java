@@ -1,7 +1,46 @@
 package level3.week2;
 
+import java.io.*;
+import java.util.StringTokenizer;
+
 public class PG_level3_자물쇠와열쇠 {
-    public boolean solution(int[][] key, int[][] lock) {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+
+        int[][] key = new int[n][m];
+        int[][] lock = new int[n][m];
+
+
+        for (int i = 0; i < key.length; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < key[i].length; j++) {
+                key[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        for (int i = 0; i < lock.length; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < lock[i].length; j++) {
+                lock[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        boolean result = solution(key, lock);
+
+        bw.write(result + "\n");
+
+        bw.flush();
+        br.close();
+        bw.close();
+    }
+
+    public static boolean solution(int[][] key, int[][] lock) {
         int M = key.length;
         int N = lock.length;
         int expandSize = N + 2 * (M - 1);
@@ -31,7 +70,7 @@ public class PG_level3_자물쇠와열쇠 {
     }
 
     // 열쇠를 시계 방향으로 90도 회전
-    private int[][] rotateKey(int[][] key) {
+    private static int[][] rotateKey(int[][] key) {
         int M = key.length;
         int[][] rotatedKey = new int[M][M];
         for (int i = 0; i < M; i++) {
@@ -43,7 +82,7 @@ public class PG_level3_자물쇠와열쇠 {
     }
 
     // 현재 열쇠 위치로 자물쇠를 열 수 있는지 확인
-    private boolean tryKey(int[][] expandedLock, int[][] key, int startX, int startY, int lockSize) {
+    private static boolean tryKey(int[][] expandedLock, int[][] key, int startX, int startY, int lockSize) {
         int M = key.length;
 
         // 열쇠 적용
