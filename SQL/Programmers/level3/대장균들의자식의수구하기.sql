@@ -1,0 +1,16 @@
+use programmers_db;
+
+-- 코드를 작성해주세요
+SELECT 
+    E.ID AS ID,
+    COUNT(C.PARENT_ID) AS CHILD_COUNT
+FROM 
+    ECOLI_DATA E
+LEFT JOIN 
+    ECOLI_DATA C
+ON 
+    E.ID = C.PARENT_ID
+GROUP BY 
+    E.ID
+ORDER BY 
+    E.ID ASC;

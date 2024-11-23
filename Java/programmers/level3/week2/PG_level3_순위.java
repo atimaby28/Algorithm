@@ -44,6 +44,7 @@ public class PG_level3_순위 {
         for (int[] result : results) {
             win[result[0]][result[1]] = true; // A가 B를 이겼다.
         }
+
         // 플로이드-워셜 알고리즘으로 승패 관계 확장
         for (int k = 1; k <= n; k++) {
             for (int i = 1; i <= n; i++) {
@@ -53,6 +54,13 @@ public class PG_level3_순위 {
                     }
                 }
             }
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                System.out.print(win[i][j] + " ");
+            }
+            System.out.println();
         }
 
         // 확실한 순위를 매길 수 있는 선수 찾기
@@ -66,6 +74,7 @@ public class PG_level3_순위 {
             }
             // 자신을 제외한 n-1명의 선수와 승패 관계가 명확하면 순위를 확정할 수 있음
             if (count == n - 1) {
+                System.out.println(i);
                 answer++;
             }
         }
@@ -73,3 +82,9 @@ public class PG_level3_순위 {
         return answer;
     }
 }
+/*
+	5
+	[[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]
+ */
+
+// 2
