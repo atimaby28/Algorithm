@@ -62,6 +62,13 @@ public class PG_level3_파괴되지않은건물 {
             prefixSum[r2 + 1][c2 + 1] += degree;
         }
 
+        for (int i = 0; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                System.out.print(prefixSum[i][j] + " ");
+            }
+            System.out.println();
+        }
+
         // 3. 누적합 계산
         for (int i = 0; i <= n; i++) {
             for (int j = 1; j <= m; j++) {
