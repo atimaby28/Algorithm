@@ -38,7 +38,7 @@ public class PG_level3_기둥과보설치 {
     public static int[][] solution(int n, int[][] build_frame) {
         int[][] answer = {};
 
-        
+
 
         return answer;
     }
