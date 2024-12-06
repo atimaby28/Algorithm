@@ -10,7 +10,7 @@ public class FindPrimeNumber {
     }
 
     private static boolean isPrime(int k) {
-        for (int i = 2; i < Math.sqrt(k); i++) {
+        for (int i = 2; i <= Math.sqrt(k); i++) {
             if(k % i == 0) {
                 return false;
             }
