@@ -50,7 +50,7 @@ public class PG_level3_미로탈출명령어 {
         if (!result.toString().equals("impossible")) return;
 
         // 목적지 도달 시 결과 갱신
-        if (x == r && y == c && path.length() == k) {
+        if (x == r && y == c && k == 0) { // k == 0일 때 경로가 끝났다는 의미
             result.setLength(0);  // 기존 내용 초기화
             result.append(path);
             return;
@@ -58,7 +58,7 @@ public class PG_level3_미로탈출명령어 {
 
         // 목표까지의 남은 거리와 k-현재 경로 길이 차이가 홀수이면 도달 불가능
         int remainingDistance = Math.abs(r - x) + Math.abs(c - y);
-        if (remainingDistance > k - path.length()) return;
+        if (remainingDistance > k) return;
 
         // 사전 순으로 방향 탐색
         for (int i = 0; i < 4; i++) {
@@ -68,9 +68,9 @@ public class PG_level3_미로탈출명령어 {
             // 격자 범위를 벗어나면 무시
             if (nx < 1 || nx > n || ny < 1 || ny > m) continue;
 
-            // 이동 후 경로 추가
+            // 경로 추가
             path.append(directions[i]);
-            dfs(n, m, nx, ny, r, c, k, path, result);
+            dfs(n, m, nx, ny, r, c, k - 1, path, result); // k를 1 감소시키며 탐색
             path.deleteCharAt(path.length() - 1); // 백트래킹
         }
     }
