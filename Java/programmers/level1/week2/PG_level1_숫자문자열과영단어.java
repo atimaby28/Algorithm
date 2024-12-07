@@ -28,7 +28,7 @@ public class PG_level1_숫자문자열과영단어 {
         HashMap<String, String> number = new HashMap<>();
 
         number.put("zero", "0");
-        number.put("one", "1");
+        number.put("bronze/one", "1");
         number.put("two", "2");
         number.put("three", "3");
         number.put("four", "4");
