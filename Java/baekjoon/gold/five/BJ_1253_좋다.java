@@ -1,6 +1,7 @@
 package gold.five;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class BJ_1253_좋다 {
@@ -30,6 +31,35 @@ public class BJ_1253_좋다 {
 
     private static int solution(int[] good) {
         int answer = 0;
+
+        Arrays.sort(good);
+
+        for (int i = 0; i < good.length; i++) {
+            int left = 0;
+            int right = good.length - 1;
+            int target = good[i];
+
+            while (left < right) {
+                if (left == i) {
+                    left++;
+                    continue;
+                }
+                if (right == i) {
+                    right--;
+                    continue;
+                }
+
+                int sum = good[left] + good[right];
+                if (sum < target) {
+                    left++;
+                } else if (sum > target) {
+                    right--;
+                } else {
+                    answer++;
+                    break;
+                }
+            }
+        }
 
         return answer;
     }

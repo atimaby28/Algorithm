@@ -1,14 +1,14 @@
 package level3.week2;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class PG_level3_보행자천국 {
     static final int MOD = 20170805;
-    static int N, M; // 행, 열
-    static int [] arx = {0, -1}; // 왼쪽 아래
-    static int [] ary = {-1, 0};
+
+    // 왼쪽, 위쪽
+    static int[] dx = {-1, 0};
+    static int[] dy = {0, -1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -39,34 +39,49 @@ public class PG_level3_보행자천국 {
     }
 
     public static int solution(int m, int n, int[][] cityMap) {
-        N = m;
-        M = n;
         // 0: 왼쪽에서 온 경우의 수 // 1: 위에서 온 경우의 수
-        int [][][] dp = new int [N][M][2];
-        dp[0][0][0] = 1;
-        dp[0][0][1] = 1;
+        int[][][] dp = new int[m][n][2];
+
+        dp[0][0][0] = 1;  // 왼쪽에서 온 경우
+        dp[0][0][1] = 1;  // 위에서 온 경우
+
         cityMap[0][0] = 2;
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < M; j++){
-                if(cityMap[i][j] == 1) continue;
-                for(int k = 0; k < 2; k++){
-                    int nx = i + arx[k];
-                    int ny = j + ary[k];
-                    if(!validation(nx, ny) || cityMap[nx][ny] == 1) continue;
-                    if(cityMap[nx][ny] == 2){ // 2
-                        dp[i][j][k] += dp[nx][ny][k];
-                    }
-                    else{
-                        dp[i][j][k] += dp[nx][ny][0] + dp[nx][ny][1];
+
+        // i는 y축, j는 x축
+        for (int i = 0; i < m; i++) {  // m은 y축
+            for (int j = 0; j < n; j++) {  // n은 x축
+                if (cityMap[i][j] == 1) continue;  // 벽인 경우 건너뛰기
+
+                for (int k = 0; k < 2; k++) {
+                    int nx = j + dx[k];  // 위쪽 또는 왼쪽 방향으로 이동
+                    int ny = i + dy[k];  // 위쪽 또는 왼쪽 방향으로 이동
+
+                    // 좌표 유효성 체크와 벽을 넘어가거나 벽이 있는 곳을 거르기
+                    if (!validation(cityMap, ny, nx) || cityMap[ny][nx] == 1) continue;
+
+                    if (cityMap[ny][nx] == 2) { // 2
+                        dp[i][j][k] += dp[ny][nx][k];
+                    } else {
+                        dp[i][j][k] += dp[ny][nx][0] + dp[ny][nx][1];
                     }
                     dp[i][j][k] %= MOD;
                 }
             }
         }
-        return (dp[N-1][M-1][0] + dp[N-1][M-1][1]) % MOD;
+
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[0].length; j++) {
+                System.out.print(dp[i][j][0] + "" + dp[i][j][1] + " ");
+            }
+            System.out.println();
+        }
+
+        return (dp[m - 1][n - 1][0] + dp[m - 1][n - 1][1]) % MOD;
     }
-    public static boolean validation(int nx, int ny){
-        if(0 <= nx && 0 <= ny && nx < N && ny < M) return true;
-        return false;
+
+    // 좌표 유효성 검사
+    public static boolean validation(int[][] cityMap, int ny, int nx) {
+        if (ny < 0 || ny >= cityMap.length || nx < 0 || nx >= cityMap[0].length) return false;
+        return true;
     }
 }
