@@ -1,10 +1,10 @@
-package silver.two;
+package silver.one;
 
 import java.io.*;
-import java.util.Stack;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class BJ_1874_스택수열 {
+public class BJ_11286_절댓값힙 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -30,26 +30,29 @@ public class BJ_1874_스택수열 {
     }
 
     private static String solution(int[] array) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(
+                (o1, o2) -> {
+                 int abs1 = Math.abs(o1);
+                 int abs2 = Math.abs(o2);
+
+                 if (abs1 == abs2)
+                     return o1 > o2 ? 1 : -1;
+                 else
+                    return Integer.compare(abs1, abs2);
+                }
+        );
 
         StringBuilder sb = new StringBuilder();
-        Stack<Integer> stack = new Stack<>();
 
-        int k = 1;
-
-        for (int num : array) {
-            // 스택에 필요한 숫자까지 push
-            while (k <= num) {
-                stack.push(k++);
-                sb.append("+").append("\n"); // push 연산
-            }
-
-            // 스택에서 pop하여 수열 구성
-            if (!stack.isEmpty() && stack.peek() == num) {
-                stack.pop();
-                sb.append("-").append("\n"); // pop 연산
-            } else {
-                // 원하는 수열을 만들 수 없는 경우
-                return "NO";
+        for (int i = 0; i < array.length; i++) {
+            if(array[i] != 0) {
+                pq.offer(array[i]);
+            } else if (array[i] == 0){
+                if(pq.isEmpty()) {
+                    sb.append(0).append("\n");
+                } else {
+                    sb.append(pq.poll()).append("\n");
+                }
             }
         }
 
