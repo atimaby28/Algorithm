@@ -1,11 +1,11 @@
 package level3.week2;
 
 import java.io.*;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class PG_level3_표편집 {
 
-    final static String[] friends = {"무지", "콘", "어피치", "제이지", "프로도", "네오", "튜브", "라이언"};
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -35,42 +35,61 @@ public class PG_level3_표편집 {
     public static String solution(int n, int k, String[] cmd) {
         String answer = "";
 
-        String [][] table = new String[n][3];
-
-        for (int i = 0; i < table.length; i++) {
-            table[i][0] = Integer.toString(i);
-            table[i][1] = friends[i];
-            table[i][2] = "O";
+        // 연결 리스트를 표현하기 위한 배열
+        int[] prev = new int[n];
+        int[] next = new int[n];
+        for (int i = 0; i < n; i++) {
+            prev[i] = i - 1;
+            next[i] = i + 1;
         }
+        next[n - 1] = -1; // 마지막 행의 다음을 -1로 설정
 
-        for (int i = 0; i < table.length; i++) {
-            System.out.print(table[i][0] + " " + table[i][1] + " " + table[i][2]);
-            System.out.println();
-        }
+        // 삭제된 행을 복구하기 위한 스택
+        Stack<int[]> removed = new Stack<>();
 
-        int pointer = k;
+        // 현재 선택된 행
+        int current = k;
+
         for (String command : cmd) {
-            String[] c = command.split(" ");
+            char op = command.charAt(0);
+            if (op == 'U') {
+                // 위로 이동
+                int x = Integer.parseInt(command.substring(2));
+                while (x-- > 0) {
+                    current = prev[current];
+                }
+            } else if (op == 'D') {
+                // 아래로 이동
+                int x = Integer.parseInt(command.substring(2));
+                while (x-- > 0) {
+                    current = next[current];
+                }
+            } else if (op == 'C') {
+                // 현재 행 삭제
+                removed.push(new int[]{current, prev[current], next[current]});
 
-            if(c[0].equals("D")) {
-                pointer += Integer.parseInt(c[1]);
-            } else if(c[0].equals("U")) {
-                pointer -= Integer.parseInt(c[1]);
-            } else if(c[0].equals("Z")) {
-                table[pointer][2] = "O";
+                if (next[current] != -1) prev[next[current]] = prev[current];
+                if (prev[current] != -1) next[prev[current]] = next[current];
+
+                current = (next[current] != -1) ? next[current] : prev[current];
+
             } else {
-                table[pointer][2] = "X";
+                int[] restore = removed.pop();
+                int index = restore[0], prevIdx = restore[1], nextIdx = restore[2];
 
-                if(pointer != n - 1)
-                    pointer++;
-                else
-                    pointer--;
+                if (prevIdx != -1) next[prevIdx] = index;
+                if (nextIdx != -1) prev[nextIdx] = index;
             }
         }
 
-        for (int i = 0; i < table.length; i++) {
-            answer += table[i][2];
+        // 결과 문자열 생성
+        StringBuilder result = new StringBuilder("O".repeat(n));
+
+        while (!removed.isEmpty()) {
+            result.setCharAt(removed.pop()[0], 'X');
         }
+
+        answer = result.toString();
 
         return answer;
     }
