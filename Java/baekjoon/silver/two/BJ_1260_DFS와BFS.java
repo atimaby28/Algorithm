@@ -73,7 +73,7 @@ public class BJ_1260_DFS와BFS {
     }
 
     private static void bfs(int v) {
-        Queue<Integer> queue = new LinkedList<>();
+        Queue<Integer> queue = new ArrayDeque<>();
 
         queue.offer(v);
 
