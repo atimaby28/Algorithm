@@ -26,13 +26,14 @@ public class BJ_2343_기타레슨 {
         bw.write(result + "\n");
 
         bw.flush();
+
         bw.close();
+        br.close();
     }
 
     private static int solution(int n, int m, int[] bluray) {
-        int answer = 0;
 
-        int start = Arrays.stream(bluray).max().orElseThrow();
+        int start = Arrays.stream(bluray).max().orElse(-1);
         int end = Arrays.stream(bluray).sum();
 
         while (start <= end) {
@@ -54,9 +55,7 @@ public class BJ_2343_기타레슨 {
             else end = middle - 1;
         }
 
-        answer = start;
-
-        return answer;
+        return start;
     }
 
 
