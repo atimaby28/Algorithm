@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 public class BJ_2178_미로탐색 {
 
+    // 이동 방향 (상, 하, 좌, 우)
     static int[] dx = {0, 0, -1, 1};
     static int[] dy = {-1, 1, 0, 0};
 
@@ -35,7 +36,9 @@ public class BJ_2178_미로탐색 {
         bw.write(result + "\n");
 
         bw.flush();
+
         bw.close();
+        br.close();
     }
 
     private static int solution(int[][] map) {
@@ -44,6 +47,7 @@ public class BJ_2178_미로탐색 {
         return bfs(map);
     }
 
+    // BFS 알고리즘
     private static int bfs(int[][] map) {
         Queue<Position> queue = new ArrayDeque<>();
 
@@ -74,7 +78,7 @@ public class BJ_2178_미로탐색 {
                 }
             }
         }
-        return -1;
+        return -1;  // 실행되지 않는 경우 (문제에서는 항상 도달 가능하다고 가정)
     }
 
     static class Position {

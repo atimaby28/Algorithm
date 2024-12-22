@@ -12,21 +12,15 @@ public class BJ_1167_트리의지름 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        StringTokenizer st;
-
         int n = Integer.parseInt(br.readLine());
-
         List<List<TreeNode>> list = new ArrayList<>();
 
-        // 트리 초기화
         for (int i = 0; i <= n; i++) {
-            list.add(new LinkedList<>());
+            list.add(new ArrayList<>());
         }
 
-        // 트리 간선 정보 입력
         for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-
+            StringTokenizer st = new StringTokenizer(br.readLine());
             int parent = Integer.parseInt(st.nextToken());
 
             while (st.hasMoreTokens()) {
@@ -38,47 +32,62 @@ public class BJ_1167_트리의지름 {
             }
         }
 
-        int result = solution(list, n);
+        // 첫 번째 탐색: DFS로 임의의 노드에서 가장 먼 노드 찾기
+        boolean[] visited = new boolean[n + 1];
+        dfs(list, 1, 0, visited);
 
-        bw.write(result + "\n");
+        // 두 번째 탐색: BFS로 가장 먼 거리 계산
+        int maxDistance = bfs(list, n, maxDistanceNode);
+
+        bw.write(maxDistance + "\n");
 
         bw.flush();
 
-        br.close();
         bw.close();
+        br.close();
     }
 
-    private static int solution(List<List<TreeNode>> list, int n) {
-        // 첫 번째 DFS로 임의의 노드에서 가장 먼 노드를 찾는다
-        boolean[] visited = new boolean[n + 1];
-        dfs(list, 1, 0, visited); // 임의의 시작 노드(1)에서 DFS 시작
-
-        // 두 번째 DFS로 가장 먼 노드에서 다시 가장 먼 노드를 찾는다
-        visited = new boolean[n + 1]; // 방문 배열 초기화
-
-        dfs(list, maxDistanceNode, 0, visited); // 두 번째 DFS
-
-        return maxDistance;
-    }
-
-    // DFS 함수 (노드 번호, 현재까지의 거리, 방문 여부)
-    static void dfs(List<List<TreeNode>> list, int node, int distance, boolean[] visited) {
+    // DFS 함수
+    private static void dfs(List<List<TreeNode>> list, int node, int distance, boolean[] visited) {
         visited[node] = true;
 
         // 가장 먼 거리 갱신
         if (distance > maxDistance) {
             maxDistance = distance;
-            maxDistanceNode = node; // 가장 먼 노드를 갱신
+            maxDistanceNode = node;
         }
 
-        // 연결된 노드를 재귀적으로 방문
         for (TreeNode neighbor : list.get(node)) {
-            int nextNode = neighbor.child;
-            int weight = neighbor.weight;
-            if (!visited[nextNode]) {
-                dfs(list, nextNode, distance + weight, visited);
+            if (!visited[neighbor.child]) {
+                dfs(list, neighbor.child, distance + neighbor.weight, visited);
             }
         }
+    }
+
+    // BFS 함수
+    private static int bfs(List<List<TreeNode>> list, int n, int start) {
+        boolean[] visited = new boolean[n + 1];
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{start, 0}); // 노드, 거리
+        visited[start] = true;
+
+        int maxDistance = 0;
+
+        while (!queue.isEmpty()) {
+            int[] current = queue.poll();
+            int node = current[0];
+            int distance = current[1];
+
+            for (TreeNode neighbor : list.get(node)) {
+                if (!visited[neighbor.child]) {
+                    visited[neighbor.child] = true;
+                    queue.add(new int[]{neighbor.child, distance + neighbor.weight});
+                    maxDistance = Math.max(maxDistance, distance + neighbor.weight);
+                }
+            }
+        }
+
+        return maxDistance;
     }
 
     // 트리 노드 클래스

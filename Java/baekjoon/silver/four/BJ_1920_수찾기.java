@@ -38,7 +38,9 @@ public class BJ_1920_수찾기 {
         bw.write(sb + "\n");
 
         bw.flush();
+
         bw.close();
+        br.close();
     }
 
     private static int[] solution(int[] searchList, int[] targetList) {

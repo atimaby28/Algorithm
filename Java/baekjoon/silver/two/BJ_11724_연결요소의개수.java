@@ -1,4 +1,4 @@
-package bronze.two;
+package silver.two;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -40,8 +40,8 @@ public class BJ_11724_연결요소의개수 {
 
         bw.flush();
 
-        br.close();
         bw.close();
+        br.close();
     }
 
     private static int solution(List<List<Integer>> graph, int n) {
