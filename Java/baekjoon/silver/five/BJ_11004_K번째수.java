@@ -36,47 +36,54 @@ public class BJ_11004_K번째수 {
         return nums[k - 1]; // k번째 수 반환
     }
 
-    private static void quickSort(int[] nums, int left, int right, int k) {
-        if (left >= right) return;
+    public static void quickSort(int[] array, int start, int end, int k) {
 
-        int pivotIdx = findPivot(nums, left, right);
+        if(start >= end) return;
 
-        if (k < pivotIdx) {
-            quickSort(nums, left, pivotIdx - 1, k);
-        } else if (k > pivotIdx) {
-            quickSort(nums, pivotIdx + 1, right, k);
+        int pivot = whilePartition(array, start, end);
+
+        if (k < pivot) {  // k가 pivot보다 작으면 왼쪽만 정렬
+            quickSort(array, start, pivot - 1, k);
+        } else if (k > pivot) {  // k가 pivot보다 크면 왼쪽만 정렬
+            quickSort(array, pivot + 1, end, k);
         }
     }
 
-    private static int findPivot(int[] nums, int left, int right) {
-        int pivot = nums[left];
-        int leftAreaIdx = left + 1;
-        int rightAreaIdx = right;
+    // Pivot을 중앙값으로 선택 O(nlogn)
+    private static int whilePartition(int[] array, int left, int right) {
+        int mid = (left + right) / 2;
+
+        swap(array, left, mid); // 중앙값을 1번째 요소로 이동하기
+
+        int pivot = array[left];
+        int leftAreaIdx = left + 1, rightAreaIdx = right;
 
         while (leftAreaIdx <= rightAreaIdx) {
-            while (leftAreaIdx <= rightAreaIdx && nums[leftAreaIdx] < pivot) {
+            while (leftAreaIdx <= right && array[leftAreaIdx] < pivot) {  // 피벗보다 큰 수가 나올 때까지 leftIdx++
                 leftAreaIdx++;
             }
-            while (leftAreaIdx <= rightAreaIdx && nums[rightAreaIdx] > pivot) {
+            while (rightAreaIdx >= left + 1 && array[rightAreaIdx] > pivot) {   // 피벗보다 작은 수가 나올 때까지 rightIdx--
                 rightAreaIdx--;
             }
 
             if (leftAreaIdx <= rightAreaIdx) {
-                swap(nums, leftAreaIdx, rightAreaIdx);
+                swap(array, leftAreaIdx, rightAreaIdx);  // 찾은 leftIdx와 rightIdx를 교환하기
                 leftAreaIdx++;
                 rightAreaIdx--;
             }
         }
 
-        swap(nums, left, leftAreaIdx - 1);
+        // 피벗을 올바른 위치로 설정하기 (swap 사용)
+        swap(array, left, rightAreaIdx);
 
-        return leftAreaIdx - 1; // Pivot의 최종 위치 반환
+        return rightAreaIdx;
     }
 
-    private static void swap(int[] nums, int left, int right) {
-        int temp = nums[left];
-        nums[left] = nums[right];
-        nums[right] = temp;
+
+    public static void swap(int[] array, int left, int right) {
+        int temp = array[left];
+        array[left] = array[right];
+        array[right] = temp;
     }
 
 }
