@@ -31,7 +31,7 @@ public class BJ_1016_제곱ㄴㄴ수 {
             long square = i * i;
 
             // 제곱수의 배수 중 min 이상에서 시작
-            long start = Math.max(square, (min + square - 1) / square * square);
+            long start = Math.max(square, ((min + square - 1) / square) * square);
 
             for (long j = start; j <= max; j += square) {
                 isSquareFree[(int) (j - min)] = true;
