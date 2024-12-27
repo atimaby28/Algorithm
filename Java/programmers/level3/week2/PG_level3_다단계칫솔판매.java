@@ -44,12 +44,14 @@ public class PG_level3_다단계칫솔판매 {
         bw.write(Arrays.toString(result) + "\n");
 
         bw.flush();
-        br.close();
+
         bw.close();
+        br.close();
     }
 
     public static int[] solution(String[] enroll, String[] referral, String[] seller, int[] amount) {
         HashMap<String, Person> personHashMap = new HashMap<>();
+
         for (String name : enroll)
             personHashMap.put(name, new Person(name, null, 0));
 
@@ -71,28 +73,32 @@ public class PG_level3_다단계칫솔판매 {
         return result;
     }
 
-}
+    static class Person {
+        String name;
+        Person parent;
+        int money;
 
-class Person {
-    String name;
-    Person parent;
-    int money;
+        public Person(String name, Person parent, int money) {
+            this.name = name;
+            this.parent = parent;
+            this.money = money;
+        }
 
-    public Person(String name, Person parent, int money) {
-        this.name = name;
-        this.parent = parent;
-        this.money = money;
+        void getReward(int money) {
+            int moneyToParent = (int) (money * 0.1);
+
+            this.money += money - moneyToParent;
+
+            if (this.parent != null) {
+                System.out.println(parent.name);
+                this.parent.getReward(moneyToParent);
+            }
+        }
     }
 
-    void getReward(int money) {
-        int moneyToParent = (int) (money * 0.1);
-
-        this.money += money - moneyToParent;
-
-        if (this.parent != null)
-            this.parent.getReward(moneyToParent);
-    }
 }
+
+
 
 /*
 public class PG_level3_다단계칫솔판매 {
