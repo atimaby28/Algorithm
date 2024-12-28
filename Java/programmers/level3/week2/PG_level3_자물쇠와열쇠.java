@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 public class PG_level3_자물쇠와열쇠 {
+
+    static int lockSize, keySize;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -41,54 +44,59 @@ public class PG_level3_자물쇠와열쇠 {
     }
 
     public static boolean solution(int[][] key, int[][] lock) {
-        int M = key.length;
-        int N = lock.length;
-        int expandSize = N + 2 * (M - 1);
+        boolean answer = false;
 
-        // 확장된 자물쇠 배열 생성
-        int[][] expandedLock = new int[expandSize][expandSize];
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                expandedLock[M - 1 + i][M - 1 + j] = lock[i][j];
+        keySize = key.length;
+        lockSize = lock.length;
+
+        int expandSize = (lockSize - 1) * 2 + keySize;
+
+        // 1. 확장된 자물쇠 배열 생성
+        int[][] expandLock = new int[expandSize][expandSize];
+
+        // 확장 자물쇠 배열에 기존 자물쇠를 옮길 때 주의 해야 할 것은
+        // 배열을 순회하는 것은 lockSize가 맞지만, 시작 위치를 잡을 때는 keySize를 사용해서 잡아야 한다
+        // 확장 자물쇠 배열은 키 크기의 우 하단 1 x 1을 자물쇠에 걸쳤을 경우부터 시작하기 때문
+        for(int i = 0; i < lockSize; i++) {
+            for(int j = 0; j < lockSize; j++) {
+                expandLock[keySize + i - 1][keySize + j - 1] = lock[i][j];
             }
         }
 
-        // 모든 회전 및 이동 조합 탐색
-        for (int rotation = 0; rotation < 4; rotation++) {
-            key = rotateKey(key); // 열쇠를 90도 회전
-            for (int x = 0; x <= expandSize - M; x++) {
-                for (int y = 0; y <= expandSize - M; y++) {
-                    // 열쇠를 현재 위치에 맞추고 확인
-                    if (tryKey(expandedLock, key, x, y, N)) {
+        // 2. 모든 회전 및 이동 조합 탐색
+        for(int rotation = 0; rotation < 4; rotation++) {
+            key = rotateKey(key);
+            for(int i = 0; i < expandSize - keySize + 1; i++) {
+                for(int j = 0; j < expandSize - keySize + 1; j++) {
+                    if (tryKey(expandLock, key, i, j)) {
                         return true;
                     }
                 }
             }
         }
 
-        return false; // 모든 조합 실패
+        return answer;
     }
 
-    // 열쇠를 시계 방향으로 90도 회전
-    private static int[][] rotateKey(int[][] key) {
-        int M = key.length;
-        int[][] rotatedKey = new int[M][M];
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < M; j++) {
-                rotatedKey[j][M - 1 - i] = key[i][j];
+    // 3. 시계방향으로 90도 회전하는 배열
+    private static int[][] rotateKey (int[][] key) {
+        int[][] rotatedKey = new int[keySize][keySize];
+
+        for(int i = 0; i < keySize; i++) {
+            for(int j = 0; j < keySize; j++) {
+                rotatedKey[j][keySize - i - 1] = key[i][j];
             }
         }
+
         return rotatedKey;
     }
 
-    // 현재 열쇠 위치로 자물쇠를 열 수 있는지 확인
-    private static boolean tryKey(int[][] expandedLock, int[][] key, int startX, int startY, int lockSize) {
-        int M = key.length;
-
+    // 4. 회전한 키를 확장 배열에 맞춰보는 함수
+    private static boolean tryKey(int[][] expandedLock, int[][] key, int y, int x) {
         // 열쇠 적용
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < M; j++) {
-                expandedLock[startX + i][startY + j] += key[i][j];
+        for (int i = 0; i < keySize; i++) {
+            for (int j = 0; j < keySize; j++) {
+                expandedLock[y + i][x + j] += key[i][j];
             }
         }
 
@@ -96,18 +104,19 @@ public class PG_level3_자물쇠와열쇠 {
         boolean isUnlocked = true;
         for (int i = 0; i < lockSize; i++) {
             for (int j = 0; j < lockSize; j++) {
-                if (expandedLock[M - 1 + i][M - 1 + j] != 1) {
+                if (expandedLock[keySize + i - 1][keySize + j - 1] != 1) {
                     isUnlocked = false;
                     break;
                 }
             }
-            if (!isUnlocked) break;
+            if (!isUnlocked)
+                break;
         }
 
-        // 열쇠 제거 (원상복구)
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < M; j++) {
-                expandedLock[startX + i][startY + j] -= key[i][j];
+        // 키를 사용하기 전 상태 확장 배열 복구
+        for (int i = 0; i < keySize; i++) {
+            for (int j = 0; j < keySize; j++) {
+                expandedLock[y + i][x + j] -= key[i][j];
             }
         }
 
