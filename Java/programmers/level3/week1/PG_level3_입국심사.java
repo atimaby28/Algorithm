@@ -36,6 +36,7 @@ public class PG_level3_입국심사 {
         Arrays.sort(times);
 
         long leftIdx = 0;
+        // 심사를 가장 느리게 하는 심사관 한 명만 모든 사람을 처리한다고 가정
         long rightIdx = times[times.length - 1] * (long) n;
 
         while (leftIdx <= rightIdx) {
