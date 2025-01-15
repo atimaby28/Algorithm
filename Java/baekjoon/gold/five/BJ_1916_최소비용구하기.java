@@ -53,8 +53,6 @@ public class BJ_1916_최소비용구하기 {
     }
 
     private static int solution(int start, int end) {
-        StringBuilder sb = new StringBuilder();
-
         PriorityQueue<Node> pq = new PriorityQueue<>();
 
         distance[start] = 0;
@@ -65,6 +63,10 @@ public class BJ_1916_최소비용구하기 {
 
             int cVertex = node.vertex;
             int cValue = node.value;
+
+            if(cValue > distance[cVertex]) {
+                continue;
+            }
 
             for (Node n : graph.get(cVertex)) {
                 if(distance[n.vertex] > cValue + n.value) {
