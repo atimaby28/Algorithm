@@ -1,11 +1,9 @@
 package level3.week1;
 
 import java.io.*;
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.StringTokenizer;
 
-public class PG_level3_징검다리 {
+public class PG_level3_징검다리건너기 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -32,33 +30,37 @@ public class PG_level3_징검다리 {
     // 이분탐색 풀이
     public static int solution(int[] stones, int k) {
         int answer = 0;
-        int l = 0, r = -1;
-        for (int s : stones) {
-            r = Math.max(r, s);
-        }
 
-        while (l <= r) {
-            int m = (l + r) / 2;
+        int left = 1; // 최소 친구 수
+        int right = Integer.MAX_VALUE - 1; // 최대 친구 수
 
-            int sequence = 0;
-            int maxSequence = 0;
-            for (int i = 0; i < stones.length; i++) {
-                if (stones[i] - m <= 0) {
-                    sequence++;
-                    maxSequence = Math.max(maxSequence, sequence);
-                } else {
-                    sequence = 0;
-                }
-            }
-
-            if (maxSequence + 1 > k) {
-                r = m - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (canCross(stones, k, mid)) {
+                answer = mid; // 현재 mid 값으로 건널 수 있음
+                left = mid + 1; // 더 많은 친구가 건널 수 있는지 확인
             } else {
-                l = m + 1;
+                right = mid - 1; // 현재 mid 값으로는 건널 수 없음
             }
         }
 
-        return l;
+        return answer;
+    }
+
+    private static boolean canCross(int[] stones, int k, int friends) {
+        int skipCount = 0; // 연속으로 건너뛴 디딤돌 수
+
+        for (int stone : stones) {
+            if (stone - friends < 0) { // 친구 수만큼 밟았을 때 디딤돌이 0보다 작아짐
+                skipCount++;
+                if (skipCount >= k) {
+                    return false; // 건너뛸 수 있는 최대 칸수를 초과함
+                }
+            } else {
+                skipCount = 0; // 건너뛴 디딤돌이 없으므로 초기화
+            }
+        }
+        return true;
     }
 
     // 슬라이딩 윈도우 풀이

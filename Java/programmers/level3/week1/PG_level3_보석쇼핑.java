@@ -29,40 +29,45 @@ public class PG_level3_보석쇼핑 {
     }
 
     public static int[] solution(String[] gems) {
-        int[] answer = new int[2];
+        // 모든 보석의 종류를 저장
+        Set<String> gemTypes = new HashSet<>(Arrays.asList(gems));
+        int totalGemTypes = gemTypes.size();
 
-        Set<String> gemSet = new HashSet<>();
+        // 슬라이딩 윈도우와 보석 개수 추적을 위한 맵 초기화
+        Map<String, Integer> gemCount = new HashMap<>();
+        int start = 0, end = 0;
 
-        Map<String, Integer> gemMap = new HashMap<>();
-        int gemType = new HashSet<>(Arrays.asList(gems)).size();
+        // 결과값 초기화 (시작 번호, 끝 번호, 길이)
+        int[] result = {0, gems.length - 1};
+        int minLength = gems.length;
 
-        int start = 0;
-        int gemLength = Integer.MAX_VALUE;
+        while (end < gems.length) {
+            // 현재 보석 추가
+            gemCount.put(gems[end], gemCount.getOrDefault(gems[end], 0) + 1);
+            end++;
 
-        for (int end = 0; end < gems.length; end++) {
-//            gemMap.put(gems[end], gemMap.getOrDefault(gems[end], 0) + 1);
-            gemSet.add(gems[end]);
+            // 모든 종류의 보석이 포함된 경우
+            while (gemCount.size() == totalGemTypes) {
+                // 구간 길이 계산
+                int currentLength = end - start;
+                if (currentLength < minLength) {
+                    minLength = currentLength;
+                    result[0] = start;
+                    result[1] = end - 1;
+                }
 
-            while(true) {
-
-                if(gemSet.contains(gems[start])) {
-                    start++;
-                } else break;
-            }
-
-//            while(gemMap.get(gems[start]) > 1) {
-//                gemMap.put(gems[start], gemMap.get(gems[start]) - 1);
-//                start++;
-//            }
-
-            if(gemType == gemMap.size() && gemLength > end - start) {
-                gemLength = end - start;
-                answer[0] = start + 1;
-                answer[1] = end + 1;
+                // 구간의 시작점 보석 제거
+                String startGem = gems[start];
+                gemCount.put(startGem, gemCount.get(startGem) - 1);
+                if (gemCount.get(startGem) == 0) {
+                    gemCount.remove(startGem);
+                }
+                start++;
             }
         }
 
-        return answer;
+        // 1-based indexing으로 변환
+        return new int[]{result[0] + 1, result[1] + 1};
     }
 
 }
