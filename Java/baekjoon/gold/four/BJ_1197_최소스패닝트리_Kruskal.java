@@ -83,20 +83,20 @@ public class BJ_1197_최소스패닝트리_Kruskal {
             return parents[v] = find(parents[v]);
         }
     }
-}
 
-class KruskalEdge implements Comparable<KruskalEdge> {
+    static class KruskalEdge implements Comparable<KruskalEdge> {
 
-    int from, to, weight;
+        int from, to, weight;
 
-    KruskalEdge(int from, int to, int weight) {
-        this.from = from;
-        this.to = to;
-        this.weight = weight;
-    }
+        KruskalEdge(int from, int to, int weight) {
+            this.from = from;
+            this.to = to;
+            this.weight = weight;
+        }
 
-    @Override
-    public int compareTo(KruskalEdge o) {
-        return Integer.compare(this.weight, o.weight);
+        @Override
+        public int compareTo(KruskalEdge o) {
+            return Integer.compare(this.weight, o.weight);
+        }
     }
 }

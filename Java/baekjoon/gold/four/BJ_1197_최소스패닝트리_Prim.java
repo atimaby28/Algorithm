@@ -71,19 +71,19 @@ public class BJ_1197_최소스패닝트리_Prim {
         return weight;
     }
 
-}
+    static class PrimeEdge implements Comparable<PrimeEdge> {
 
-class PrimeEdge implements Comparable<PrimeEdge> {
+        int vertex, weight;
 
-    int vertex, weight;
+        PrimeEdge(int vertex, int weight) {
+            this.vertex = vertex;
+            this.weight = weight;
+        }
 
-    PrimeEdge(int vertex, int weight) {
-        this.vertex = vertex;
-        this.weight = weight;
+        @Override
+        public int compareTo(PrimeEdge o) {
+            return Integer.compare(this.weight, o.weight);
+        }
     }
 
-    @Override
-    public int compareTo(PrimeEdge o) {
-        return Integer.compare(this.weight, o.weight);
-    }
 }
