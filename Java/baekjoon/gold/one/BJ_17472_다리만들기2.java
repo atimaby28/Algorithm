@@ -6,7 +6,6 @@ import java.util.*;
 public class BJ_17472_다리만들기2 {
 
     static int n, m;
-    static int minLen;
     static int[][] map;
     static int[] parent;
     static List<int[]> edges;
@@ -57,8 +56,8 @@ public class BJ_17472_다리만들기2 {
         }
 
         edges.sort(Comparator.comparingInt(a -> a[2]));
-        int totalCost = 0, connectedEdges = 0;
 
+        int totalCost = 0, connectedEdges = 0;
         for (int[] edge : edges) {
             int a = find(edge[0]);
             int b = find(edge[1]);
