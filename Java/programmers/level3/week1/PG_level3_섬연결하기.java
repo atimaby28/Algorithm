@@ -1,111 +1,171 @@
 package level3.week1;
 
-import java.io.*;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class PG_level3_섬연결하기 {
 
-    static int ans;
     static int[] unf;
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    static List<Island> islands;
 
-        StringTokenizer st = null;
-
-        int n = Integer.parseInt(br.readLine());
-
-        int[][] cost = new int[n + 1][3];
-
-        for (int i = 0; i < cost.length; i++) {
-            st = new StringTokenizer(br.readLine());
-            cost[i][0] = Integer.parseInt(st.nextToken());
-            cost[i][1] = Integer.parseInt(st.nextToken());
-            cost[i][2] = Integer.parseInt(st.nextToken());
-        }
-
-        int result = solution(n, cost);
-
-        bw.write(result + "\n");
-
-        bw.flush();
-
-        br.close();
-        bw.close();
-    }
-
-    public static int solution(int n, int[][] costs) {
+    public int solution(int n, int[][] costs) {
         int answer = 0;
 
-        ArrayList<Island> arrayList = new ArrayList<>();
+        islands = new ArrayList<>();
 
-        unf = new int[n + 1];
+        for(int i = 0; i < costs.length; i++) {
+            int from = costs[i][0];
+            int to = costs[i][1];
+            int cost = costs[i][2];
 
-        // 유니온 파인드 초기화
-        for (int i = 0; i < n; i++) {
+            islands.add(new Island(from, to, cost));
+        }
+
+        unf = new int[n];
+
+        for(int i = 0; i < n; i++) {
             unf[i] = i;
         }
 
-        for (int i = 0; i < costs.length; i++) {
-            arrayList.add(new Island(costs[i][0], costs[i][1], costs[i][2]));
-        }
+        Collections.sort(islands);
 
-        Collections.sort(arrayList);
-
-        kruskal(arrayList, n - 1);
-
-        answer = ans;
+        answer = kruskal(n);
 
         return answer;
     }
 
-    private static void kruskal(ArrayList<Island> arrayList, int cnt) {
-        for (Island e : arrayList) {
-            int fromEdge = find(e.from);
-            int toEdge = find(e.to);
+    private static int kruskal(int n) {
+        int cost = 0, edgeCnt = 0;
+        for(Island island : islands) {
+            int from = find(island.from);
+            int to = find(island.to);
 
-            if(fromEdge != toEdge) {
-                ans += e.weight;
-                cnt--;
-                union(e.from, e.to);
+            if(from != to) {
+                cost += island.cost;
+                edgeCnt++;
+                union(from, to);
             }
 
-            if(cnt == 0) {
-                return;
+            if(edgeCnt == n - 1) {
+                return cost;
             }
+        }
+
+        return -1;
+    }
+
+    private static void union(int from, int to) {
+        int u = find(from);
+        int v = find(to);
+
+        if(u != v) {
+            unf[v] = u;
         }
     }
 
-    public static int find(int v) {
-        if(v == unf[v]) {
-            return v;
+    private static int find(int x) {
+        if(x == unf[x]) {
+            return x;
         } else {
-            return unf[v] = find(unf[v]);
+            return unf[x] = find(unf[x]);
         }
     }
 
-    public static void union(int from, int to) {
-        int fromEdge = find(from);
-        int toEdge = find(to);
+    private static class Island implements Comparable<Island> {
+        int from, to, cost;
 
-        if (fromEdge != toEdge) {
-            unf[toEdge] = fromEdge;
+        Island(int from, int to, int cost) {
+            this.from = from;
+            this.to = to;
+            this.cost = cost;
+        }
+
+        @Override
+        public int compareTo(Island I) {
+            return Integer.compare(this.cost, I.cost);
         }
     }
 }
 
-class Island implements Comparable<Island> {
 
-    int from, to, weight;
+// Prim 버전
 
-    Island(int from, int to, int weight) {
-        this.from = from;
-        this.to = to;
-        this.weight = weight;
-    }
-
-    @Override
-    public int compareTo(Island o) {
-        return Integer.compare(this.weight, o.weight);
-    }
-}
+//import java.util.List;
+//import java.util.ArrayList;
+//import java.util.PriorityQueue;
+//import java.util.Queue;
+//
+//class Solution {
+//
+//    static boolean[] visited;
+//    static List<List<Island>> islands;
+//
+//    public int solution(int n, int[][] costs) {
+//        int answer = 0;
+//
+//        islands = new ArrayList<>();
+//        visited = new boolean[n];
+//
+//        for (int i = 0; i < n; i++) {
+//            islands.add(new ArrayList<>());
+//        }
+//
+//        for (int i = 0; i < costs.length; i++) {
+//            int from = costs[i][0];
+//            int to = costs[i][1];
+//            int cost = costs[i][2];
+//
+//            islands.get(from).add(new Island(to, cost));
+//            islands.get(to).add(new Island(from, cost)); // 양방향 추가
+//        }
+//
+//        answer = prim(0, n);
+//
+//        return answer;
+//    }
+//
+//    private static int prim(int start, int n) {
+//        Queue<Island> pq = new PriorityQueue<>();
+//        pq.offer(new Island(start, 0));
+//
+//        int cost = 0;
+//        int count = 0; // 방문한 노드 수
+//
+//        while (!pq.isEmpty()) {
+//            Island island = pq.poll();
+//            int curIsland = island.next;
+//            int costIsland = island.cost;
+//
+//            if (visited[curIsland]) continue;
+//
+//            visited[curIsland] = true;
+//            cost += costIsland;
+//            count++;
+//
+//            if (count == n) break;  // 모든 섬이 연결되었으면 종료
+//
+//            for (Island nextIsland : islands.get(curIsland)) {
+//                if (!visited[nextIsland.next]) {
+//                    pq.offer(new Island(nextIsland.next, nextIsland.cost));
+//                }
+//            }
+//        }
+//
+//        return cost;
+//    }
+//
+//    private static class Island implements Comparable<Island> {
+//        int next, cost;
+//
+//        Island(int next, int cost) {
+//            this.next = next;
+//            this.cost = cost;
+//        }
+//
+//        @Override
+//        public int compareTo(Island I) {
+//            return Integer.compare(this.cost, I.cost);
+//        }
+//    }
+//}
