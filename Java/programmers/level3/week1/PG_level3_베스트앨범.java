@@ -34,51 +34,40 @@ public class PG_level3_베스트앨범 {
     }
 
     public static int[] solution(String[] genres, int[] plays) {
-        int[] answer = {};
+        Map<String, Integer> genrePlayCount = new HashMap<>();
+        Map<String, List<Song>> genreSongs = new HashMap<>();
 
-        Map<String, Integer> hsmap = new HashMap<>();
+        for (int i = 0; i < genres.length; i++) {
+            genrePlayCount.put(genres[i], genrePlayCount.getOrDefault(genres[i], 0) + plays[i]);
 
-        for(int i = 0; i < genres.length; i++) {
-            hsmap.put(genres[i], hsmap.getOrDefault(genres[i], 0) + plays[i]);
+            genreSongs.putIfAbsent(genres[i], new ArrayList<>());
+            genreSongs.get(genres[i]).add(new Song(i, plays[i]));
         }
 
-        String[][] board = new String[genres.length][4];
+        List<String> sortedGenres = new ArrayList<>(genrePlayCount.keySet());
+        sortedGenres.sort((g1, g2) -> genrePlayCount.get(g2) - genrePlayCount.get(g1));
 
-        for(int i = 0; i < board.length; i++) {
-            board[i][0] = genres[i];
-            board[i][1] = Integer.toString(plays[i]);
-            board[i][2] = Integer.toString(hsmap.get(genres[i]));
-            board[i][3] = Integer.toString(i);
-        }
+        List<Integer> bestAlbum = new ArrayList<>();
+        for (String genre : sortedGenres) {
+            List<Song> songs = genreSongs.get(genre);
+            songs.sort((s1, s2) -> s2.plays == s1.plays ? s1.id - s2.id : s2.plays - s1.plays);
 
-        Arrays.sort(board, (o1, o2) -> {
-            if(Integer.parseInt(o1[2]) == Integer.parseInt(o2[2])) {
-                return Integer.compare(Integer.parseInt(o2[1]), Integer.parseInt(o1[1]));
-            }
-            return Integer.compare(Integer.parseInt(o2[2]), Integer.parseInt(o1[2]));
-        });
-
-        List<Integer> arrList = new ArrayList<>();
-
-        String str = board[0][0];
-        int cnt = 1;
-
-        arrList.add(Integer.parseInt(board[0][3]));
-
-        for(int i = 1; i < board.length; i++) {
-
-            if(str.equals(board[i][0]) && cnt < 2) {
-                cnt++;
-                arrList.add(Integer.parseInt(board[i][3]));
-            } else if(!str.equals(board[i][0])) {
-                arrList.add(Integer.parseInt(board[i][3]));
-                cnt = 1;
-                str = board[i][0];
+            bestAlbum.add(songs.get(0).id);
+            if (songs.size() > 1) {
+                bestAlbum.add(songs.get(1).id);
             }
         }
 
-        answer = arrList.stream().mapToInt(Integer::intValue).toArray();
+        return bestAlbum.stream().mapToInt(i -> i).toArray();
+    }
 
-        return answer;
+    static class Song {
+        int id;
+        int plays;
+
+        Song(int id, int plays) {
+            this.id = id;
+            this.plays = plays;
+        }
     }
 }

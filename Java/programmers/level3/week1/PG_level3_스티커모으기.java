@@ -1,6 +1,7 @@
 package level3.week1;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class PG_level3_스티커모으기 {
@@ -30,12 +31,29 @@ public class PG_level3_스티커모으기 {
     }
 
     public static int solution(int[] sticker) {
-        int answer = 0;
+        int n = sticker.length;
 
-        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-        System.out.println("Hello Java");
+        if (n == 1) return sticker[0];
 
-        return answer;
+        return Math.max(maxStickerSum(Arrays.copyOfRange(sticker, 0, n - 1)),
+                maxStickerSum(Arrays.copyOfRange(sticker, 1, n)));
+    }
+
+    private static int maxStickerSum(int[] sticker) {
+        int n = sticker.length;
+
+        if (n == 1) return sticker[0];
+
+        int[] dp = new int[n];
+
+        dp[0] = sticker[0];
+        dp[1] = Math.max(sticker[0], sticker[1]);
+
+        for (int i = 2; i < n; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + sticker[i]);
+        }
+
+        return dp[n - 1];
     }
 
 }
